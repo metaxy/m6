@@ -12,8 +12,7 @@ getArticleR catAlias alias = do
     case article2 of
        Nothing -> do 
            notFound 
-       Just a -> do
-           article <- a
+       Just article -> do
            defaultLayout $ do $(widgetFile "Article")
        
    
