@@ -1,0 +1,12 @@
+/static StaticR Static getStatic
+/auth   AuthR   Auth   getAuth
+
+/favicon.ico FaviconR GET
+/robots.txt RobotsR GET
+
+/ HomeR GET POST
+/backend/article/list BackendArticleListR GET
+/backend/article/add BackendArticleAddR GET POST
+/backend/cat/list BackendCatListR GET
+/backend/cat/add BackendCatAddR GET POST
+/a/#Text/#Text ArticleR GET

@@ -1,0 +1,20 @@
+Default: &defaults
+  database: m6.sqlite3
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: m6_test.sqlite3
+  <<: *defaults
+
+Staging:
+  database: m6_staging.sqlite3
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: m6_production.sqlite3
+  poolsize: 100
+  <<: *defaults

@@ -1,0 +1,34 @@
+module Handler.BackendArticleAdd where
+
+import Import
+import Data.Time
+import Yesod.Form.Nic (YesodNic,nicHtmlField)
+
+getCategories :: Handler (OptionList (Entity Category)) 
+getCategories = optionsPersist [] [Asc CategoryTitle] categoryTitle 
+
+entryForm :: Form Article
+entryForm = renderDivs $ Article
+    <$> areq textField "Title" Nothing
+    <*> areq nicHtmlField "Content" Nothing
+    <*> areq textField "Alias" Nothing
+    <*> (entityKey <$> areq (selectField getCategories) "Category" Nothing)
+    <*> lift (liftIO getCurrentTime)
+    
+getBackendArticleAddR :: Handler Html
+getBackendArticleAddR = do
+    (articleWidget, enctype) <- generateFormPost entryForm
+    defaultLayout $ do $(widgetFile "BackendArticleAdd")
+
+
+postBackendArticleAddR :: Handler Html
+postBackendArticleAddR = do
+    ((res,articleWidget),enctype) <- runFormPost entryForm
+    case res of
+         FormSuccess article -> do
+            articleId <- runDB $ insert article
+            setMessage $ toHtml $ (articleTitle article) <> " created"
+            redirect $ BackendArticleListR
+         _ -> defaultLayout $ do
+                setTitle "Please correct your entry form"
+                $(widgetFile "BackendArticleAddError")

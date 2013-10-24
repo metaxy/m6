@@ -1,0 +1,4 @@
+$forall a <- entityVal article
+    <h1> #{articleTitle a}
+    <article> #{articleContent a}
+

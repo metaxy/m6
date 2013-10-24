@@ -1,0 +1,9 @@
+<h1>Articles
+$if null articles
+    <p> There are no articles in the blog
+$else
+    <ul>
+        $forall Entity articleId article <- articles
+            <li>
+                <a> #{articleTitle article}
+<a href=@{BackendArticleAddR}> Add new Article </a>
