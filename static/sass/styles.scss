@@ -1,0 +1,687 @@
+// I gather this file is a starting point for the project.
+@import "_config";
+@import "compass/css3";
+@import "compass/utilities";
+@import "compass/support";
+@import "_sass-bootstrap.scss";
+@import "_leaflet.scss";
+$experimental-support-for-khtml: true;
+
+@media (max-width: 767px) { 
+    #component { 
+        padding-left: 5px; 
+        padding-right: 5px; 
+    } 
+}
+
+html, body {
+    height: 100%;
+}
+
+#map { height: 180px; }
+@mixin fading-sep($background){
+    $sep-color2: darken($background, 11%);
+    $sep-color2-fade: $background;
+    $sep-color2-b: lighten($sep-color2, 4%);
+    $sep-color2-b-fade: rgba(lighten($sep-color2-fade, 7%), 0.6);
+    .fading-sep {
+        width: 100%;
+        height: 1px;
+        @include background(linear-gradient(left, $sep-color2-b, lighten($sep-color2-b,3%)));
+        background-color: $sep-color2-b;
+        margin: 0;
+        padding: 0;
+    }
+    .fading-sep2 {
+        width: 100%;
+        height: 1px;
+        //background-color: lighten($sep-color2, 8%);
+
+      //  @include background(linear-gradient(left, $sep-color2-b-fade, $sep-color2-b, $sep-color2-b-fade));
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@include fading-sep($mainBackground);
+
+#header {
+    @include background(linear-gradient(lighten($header-color,4), $header-color));
+}
+#logo {    
+    background-image: url(/static/images/logo.png);
+    width: 283px;
+    height: 88px;
+}
+
+.dark-bg {
+   color: $brightText;
+   margin-bottom: 5px;
+   @include linear-bg($darkBGColor, 15%);
+   > div {
+        background-image: url(/static/images/square_bg.png);
+        border-bottom: 1px solid lighten($darkBGColor,20%);
+   }
+   
+  /*  background-size: cover;*/
+    border-bottom: 1px solid darken($darkBGColor,10%);
+   /* #second-nav-bar {
+        @include box-shadow(none);
+    }*/
+}
+.dark-bg-start {
+   @include linear-bg($darkBGColor-start, 15%);
+   > div {
+        border-bottom: 1px solid lighten($darkBGColor-start,20%);
+   }
+    
+    border-bottom: 1px solid darken($darkBGColor-start,10%);
+}
+#main-nav-bar
+{
+    border: none;
+    margin-bottom: 5px;
+    margin-top: 20px;
+ 
+    background: none;
+    filter: none;
+    
+    @include box-shadow(none);
+    
+    color: $darkText;
+    border: none;
+    
+    .nav 
+    {
+        > li 
+        {
+            > a 
+            {
+                background: none;
+                color: $darkText;
+                @include box-shadow(none);
+            }
+            > a:hover 
+            {
+                background: $main-nav-bar-hover;
+                @include linear-bg($main-nav-bar-hover);
+                @include border-radius($border-radius);
+                @include text-shadow(none);
+                color: $brightText;
+
+            }
+        }
+        > li.active 
+        {
+            > a 
+            { 
+                $l: 25%;
+
+                @include linear-bg( lighten($darkText,$l));
+                @include border-radius($border-radius);
+                color: $brightText;
+                @include box-shadow(none);
+                @include text-shadow(none);
+            }
+            > a:hover 
+            {
+                @include linear-bg($main-nav-bar-hover);
+                color: $brightText;
+            }
+        }
+    
+    }
+    
+    li.dropdown.open > .dropdown-toggle, 
+    li.dropdown.active > .dropdown-toggle, 
+    li.dropdown.open.active > .dropdown-toggle 
+    {
+        background: none;
+    }
+}
+
+#spacer {
+    height: 20px;
+    content: "";
+    width: 100%;
+}
+
+#second-nav-bar {
+    border-radius: $border-radius;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border: none;
+    background-color: $brightText;
+    @include background(linear-gradient(lighten($brightText,2%), darken($brightText,6%)));
+    
+    @include box-shadow($normal-box-shadow);
+    li 
+    {
+        > a 
+        {
+            background: none;
+           // color: $brightText;
+            color: $darkText;
+            @include box-shadow(none);
+            @include text-shadow(none);
+        }
+        > a:hover 
+        {
+            color: $brightText;
+            @include linear-bg(lighten($second-nav-bar-background,5%));
+            @include transition(all 0.3s);
+        }
+    }
+    li.active 
+    {
+        > a 
+        { 
+            @include linear-bg($second-nav-bar-background);
+            color: $brightText;
+            @include box-shadow(none);
+            @include text-shadow($small-text-shadow darken($second-nav-bar-background,15%));
+        }
+        > a:hover 
+        {
+            @include linear-bg(lighten($second-nav-bar-background,5%));
+        }
+    }
+
+}
+
+#mainCarousel {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border: 4px solid #fff;
+    background-color: #ffffff;
+    @include box-shadow(
+        $normal-box-shadow
+    );
+    @include border-radius($border-radius);
+    img {
+        background-color: #ffffff;
+        @include border-radius(none);
+    }
+    div > a:visited {
+        color: $brightText;
+    }
+    div > a {
+        color: $brightText;
+    }
+    .carousel-caption {
+        background-color: rgba(0,0,0,0.6);
+        @include background(linear-gradient($deg, rgba(0,0,0,0.6),rgba(0,0,0,0.5)));
+        @include border-radius($border-radius*2);
+        @include box-shadow($normal-box-shadow);
+    }
+    
+}
+
+#toolbar {
+    $iconSize: 40px;
+    $width: $iconSize;
+    $fontSize: 32px;
+    $maxWidth: $width + 40px;
+    
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    
+    //text-align: center;
+    div > a:hover, a:focus {
+        color: $brightText;
+        .icon-box {
+            @include background(linear-gradient($deg, rgba(255,255,255,0.15), rgba(255,255,255,0.45)));
+
+        }
+        span {
+            text-decoration: underline !important;
+        }
+    }
+    div > a:visited {
+        color: $brightText;
+    }
+    div > a {
+        color: $brightText;
+    }
+    p > a, a:visited {
+        text-decoration: underline !important;
+    }
+    .top {
+        font-weight: 700;
+        font-size: $fontSize;
+        @include text-shadow($big-text-shadow rgba(0,0,0,0.5));
+        
+        > span {
+            padding-right: 2em;
+            position: relative;
+            top:$maxWidth / 4;
+        }
+        text-align: left;
+        margin: auto 0;
+        
+        .icon-box {
+            display: inline-block;
+            overflow: hidden;
+            
+            width: $maxWidth;
+            height: $maxWidth;
+            padding-top: 22px;
+            padding-left: 22px;
+            background-color: rgba(255,255,255,0.2);
+            @include background(linear-gradient($deg, rgba(255,255,255,0.15), rgba(255,255,255,0.15)));
+            
+            @include border-radius($width);
+            
+            margin-right: 20px;
+            
+            i {
+                height: 42px;
+                width: 42px;
+                line-height: $iconSize;
+                font-size: $iconSize;
+                color: #F9FAF7;
+                @include text-shadow($small-text-shadow rgba(0,0,0,0.3));
+            }
+        }
+    }
+    .nav > li > a {
+        padding: 6px 10px; //damits schmaller ist
+    }
+    
+    .content {
+        text-align: left;
+        margin-left: 1em;
+        padding-top: 0.5em;
+        color: $brightText;
+        i {
+            margin-right: 0.5em;
+        }
+        a {
+            color:$brightText;
+        }
+        @include text-shadow(1px 1px 2px rgba(0,0,0,0.3));
+    }
+}
+
+#breadcrumb-all {
+  background-color: $breadcrumb-bg;
+  @include background(linear-gradient(lighten($breadcrumb-bg,3%),$breadcrumb-bg));
+  border-radius: $border-radius-base;
+  border: 1px solid darken($breadcrumb-bg, 5%);
+}
+
+
+#sidebar, #footer {
+    margin-top: 3em;
+    h3 {
+        margin-bottom: 0px;
+    }
+   
+    .module {
+
+        background: darken($mainBackground, 3);
+        @include background(linear-gradient(darken($mainBackground, 3), darken($mainBackground, 1))); 
+        @include box-shadow($normal-box-shadow);
+        @include border-radius($border-radius);
+        
+        margin-bottom: 1em;
+        @include fading-sep(darken($mainBackground, 3));
+        > div {
+            border-top: 4px solid $color3;
+            @include border-radius($border-radius);
+            padding: 0 1em 1em 1em;
+            .arrow {
+                width: 0; 
+                height: 0; 
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                
+                border-top: 6px solid $color3;
+                margin-left: 50%;
+            }
+            .module-content {
+                padding-top: 1em;
+            }
+        }
+    }
+    
+    form {
+        margin-top: 2em;
+    }
+}
+/*#footer {
+    .module > div {
+        border-top: 4px solid #4D4D4D;
+    }
+
+}*/
+@mixin header($name, $color) {
+    body.page-#{$name} {
+        .dark-bg {
+            @include linear-bg($color, 15%);
+            > div {
+                    border-bottom: 1px solid lighten($color,20%);
+            }
+            border-bottom: 1px solid darken($color,10%);
+        }
+    }
+
+}
+@mixin page($name, $color) {
+    body.page-#{$name} {
+        .dark-bg {
+            @include linear-bg($color, 15%);
+            > div {
+                    border-bottom: 1px solid lighten($color,20%);
+            }
+            border-bottom: 1px solid darken($color,10%);
+        }
+        .btn-primary {
+            @include button-variant($btn-primary-color, $color, $btn-primary-border);
+        }
+        #sidebar,#footer {
+            .module > div {
+                border-color: $color;
+                .arrow {
+                    border-top-color: $color;
+                }
+            }
+        }
+        
+        #second-nav-bar {
+
+            @include box-shadow($normal-box-shadow);
+            li 
+            {
+                > a:hover 
+                {
+                    @include linear-bg(lighten($color,5%));
+                }
+            }
+            li.active 
+            {
+                > a 
+                { 
+                    @include linear-bg($color);
+                    @include text-shadow($small-text-shadow darken($color,10%));
+                }
+                > a:hover 
+                {
+                    @include linear-bg(lighten($color,5%));
+                }
+            }
+
+        }
+       /* &.page-medien {
+            .btn-grey {
+                @include button-variant($btn-grey-color, lighten($color,5%), $btn-grey-border);
+            }
+        }*/
+        
+        .language-switch > .active {
+                @include  linear-bg(lighten($color,5%));
+        }
+        
+    }
+}
+@mixin main-nav-color($name, $color) {
+    #main-nav-bar
+    {
+        .nav  > li.item-#{$name} > a:hover {
+            @include linear-bg($color);
+        }
+    }
+}
+@include page("hellersdorf", $color-hellersdorf);
+@include page("lichtenberg", $color-lichtenberg);
+@include page("wartenberg", $color-wartenberg);
+@include page("spandau", $color-spandau);
+@include main-nav-color("202", $color-hellersdorf);
+@include main-nav-color("133", $color-lichtenberg);
+@include main-nav-color("134", $color-wartenberg);
+@include main-nav-color("135", $color-spandau);
+@include header("hellersdorf", $darkBGColor-hellersdorf);
+@include header("lichtenberg", $darkBGColor-lichtenberg);
+@include header("wartenberg", $darkBGColor-wartenberg);
+@include header("spandau", $darkBGColor-spandau);
+
+
+#bc {
+    ul,ol {
+        margin-bottom: 0;
+    }
+    .language-switch {
+        margin-top: 6px;
+        margin-right: 4px;
+    }
+    margin-bottom: $line-height-computed;
+    background-color: $breadcrumb-bg;
+    @include background(linear-gradient(lighten($breadcrumb-bg,3%),$breadcrumb-bg));
+    border-radius: $border-radius-base;
+    border: 1px solid darken($breadcrumb-bg, 5%);
+}
+
+#footer {
+    margin-top: 2em;
+    margin-bottom: 0;
+    @include linear-bg($footerColor, 15%);
+
+    border-top: 1px solid darken($footerColor, 5%);
+
+    > div {
+        border-top: 1px solid lighten($footerColor,15%);
+        padding-top: 1em;
+    }
+}
+#content_wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -160px;
+}
+
+#push { height: 160px; } /* Just some arbitrary space to add between footer and rest of the content, when they are close */
+
+
+
+/* Tooltips */
+.tip-wrap{
+    z-index: 10000;
+}
+.tip {
+    float: left;
+    background: #FFFFFF;
+    @include box-shadow($normal-box-shadow);
+    @include border-radius($border-radius);
+    border: 2px solid $color5;
+    padding: 5px;
+    max-width: 200px;
+}
+.tip-title {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    font-weight: bold;
+    margin-top: -15px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+.tip-text {
+    font-size: 100%;
+    margin: 0;
+}
+
+/** Sermon manager */
+thead.table-sermons-thead {
+    //background-color: #EEEEEE;
+}
+
+.ss-dl {
+    i {
+        font-size: 24px;
+        color: #000000;
+       /* @include text-shadow(0 0 2px rgba(0,0,0,0.15));*/
+    }
+    i:hover {
+        color: $color3;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+}
+#ss-video-player {
+
+}
+.ss-video-player-container {
+    width: 590px;
+    margin-bottom: 1.5em;
+}
+.ss-sermon-info {
+    i {
+        font-size: 24px;
+        color: $color3;
+        @include text-shadow($small-text-shadow rgba(0,0,0,0.1));
+        margin-bottom: 1em;
+        width: 20px;
+        display: box;
+    }
+    > div > div {
+        padding-bottom: 10px;
+    }
+}
+
+.content {
+    li a {
+        font-size: 0.9em;
+         border: 1px solid rgba(255,255,255,0.0);
+    }
+    li > a:hover, li > a:focus {
+        background-color: rgba(255,255,255,0.2) !important;
+        border: 1px solid rgba(255,255,255,0.1);
+        @include box-shadow($normal-box-shadow);
+    }
+}
+/* for all */
+.navbar-inner {
+    @include border-radius($border-radius);
+}
+
+/* com_contact*/
+
+/*.contact-form {
+    input, textarea, .uneditable-input {
+        width: 400px;
+    }
+}*/
+.com-contact-cat-item {
+    img {
+        width:80px;
+        height: auto;
+        @include border-radius($border-radius);
+        @include box-shadow(rgba(0,0,0,0.2) 2px 2px 2px);
+        border: 3px solid #fff;
+    }
+    .list-group-item-text {
+        margin-left: 1em;
+    }
+}
+.contact-info-big {
+    padding: 1em;
+    img {
+        @include border-radius($border-radius);
+        @include box-shadow(rgba(0,0,0,0.2) 2px 2px 2px);
+        border: 3px solid #fff;
+    }
+    span {
+        margin-left: 1em;
+    }
+   // border: 1px solid rgba(0,0,0,0.3);
+}
+/**
+ * Make tables mobile compatible
+ */
+@media (max-width: 767px) {
+
+        table, thead, tbody, th, td, tr { 
+            display: block;
+            border: none;
+        }
+
+        thead tr { 
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            border: none;
+        }
+        
+        tr {border-bottom: 1px solid grey;}
+        td { 
+            border: none;
+            position: relative;
+            padding-left: 50%; 
+        }
+        td+td {
+            margin-left: 1em;
+        }
+        
+
+        td:nth-of-type(1):before { content: ""; }
+        td:nth-of-type(2):before { content: ""; }
+        .table {
+            border: none;
+            th, td {
+                border: none;
+            }
+            
+        }
+        .table-bordered {
+            border: none;
+            th, td {
+                border: none;
+            }
+            
+        }
+
+
+}
+
+.wrapper {
+    border: none;
+}
+
+/* typo */
+
+h1, h2, h3, h4, h5, h6 {
+    //@include text-shadow(rgba(0,0,0,0.2) 0 1px 0px);
+    //font-family: ‘Lora’, serif !important; 
+    font-style: italic;
+    font-weight: 400;
+ /*   color: $headingsColor;*/
+}
+
+.page-header {
+    border: none !important;
+}
+
+#content-save-button {
+    margin-top: 0.67em;
+}
+#map {
+    height: 500px;
+    @include border-radius($border-radius);
+    border: 3px solid #eee;
+    @include box-shadow($normal-box-shadow);
+}
+
+.flag {
+    width: 18px;
+    height: 12px;
+    background:url(/static/images/flags.png) no-repeat;
+    display: block;
+    @include box-shadow(1px 1px 1px rgba(0,0,0,0.2));
+}
+
+
+.flag.flag-de {background-position: -18px 0}
+.flag.flag-ru {background-position: 0 -12px}
+.flag.flag-us {background-position: -18px -12px}

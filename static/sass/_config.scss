@@ -1,0 +1,74 @@
+
+/* Triad from #08509C */
+/*$color1: #A9190E;//rot
+$color2: #0C2D4F;//dunkel blau
+$color3: #08519C;//blau
+$color4: #5F6910;//geld-grün
+$color5: #CEE800;//gelb*/
+
+
+//Boostrap is base
+/*$color1: #A9190E;//rot
+$color2: #0C2D4F;//dunkel blau
+$color3: #428BCA;//blau
+$color4: #744FCF;//
+$color5: #CEE800;//gelb
+*/
+//Own $color is base
+/*$color1: #D72D20;//rot
+$color2: #05376B;//dunkel blau
+$color3: #287FC4;//blau
+$color4: #4383CA;//hell blau
+$color5: #F2DE25;//gelb*/
+
+
+//red: #BD1220
+//blue: #004B9C
+$color1: #A91C11 /*#BD1220*/;//rot
+$color2: #082A4F;//dunkel blau
+$color3: #09509C;//blau
+$color4: #4383CA;//hell blau
+$color5: #F2DE25;//gelb
+
+$mainBackground: #FFFFFF;
+
+$headingsColor: $color3;
+
+$tableBackgroundAccent: darken($mainBackground,2%);
+$tableBackground: $mainBackground;
+
+$footerColor: #D5D5D5;
+$header-color: #F1F1F1;
+$border-radius: 4px;
+
+$darkText: #303030;
+$brightText: #F9F9F9;
+
+$main-nav-bar-hover: $color3;
+$second-nav-bar-background: $color3;
+
+$boxColor: #83B2CA /*$color3*/ /*#1255C1*/;
+$step: 20%; 
+$color-hellersdorf: #BD1220;
+$color-lichtenberg: #D2640F /*#C08300*/;
+$color-wartenberg: #71B629;
+$color-spandau: #1C9CB6;
+
+$darkBGColor: desaturate($color-hellersdorf, 30%);
+$darkBGColor-start: desaturate($color3, 20%);
+$darkBGColor-hellersdorf: desaturate($color-hellersdorf, 20%);
+$darkBGColor-lichtenberg: desaturate($color-lichtenberg, 20%);
+$darkBGColor-wartenberg: desaturate($color-wartenberg, 15%);
+$darkBGColor-spandau: desaturate($color-spandau, 20%);
+
+$small-text-shadow: 0 2px 1px;
+$big-text-shadow: 0 2px 1px;
+
+$deg: 340deg;
+$gradient-percent: 10%;
+$normal-box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
+
+@mixin linear-bg($color, $moar: $gradient-percent) {
+    background: $color;
+    @include background(linear-gradient($deg, $color, lighten($color,$moar)));
+}
