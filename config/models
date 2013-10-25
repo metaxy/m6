@@ -54,8 +54,9 @@ Contact
 SermonSpeaker
     name Text
     alias Text
-    pic Text
-    bio Text
+    pic Text Maybe
+    bio Html Maybe
+    deriving
     
 SermonSermons
     title Text

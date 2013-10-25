@@ -17,13 +17,13 @@ entryForm = renderDivs $ Article
     
 getBackendArticleAddR :: Handler Html
 getBackendArticleAddR = do
-    (articleWidget, enctype) <- generateFormPost entryForm
-    defaultLayout $ do $(widgetFile "BackendArticleAdd")
+    (widget, enctype) <- generateFormPost entryForm
+    defaultLayout $ do $(widgetFile "BackendAdd")
 
 
 postBackendArticleAddR :: Handler Html
 postBackendArticleAddR = do
-    ((res,articleWidget),enctype) <- runFormPost entryForm
+    ((res,widget),enctype) <- runFormPost entryForm
     case res of
          FormSuccess article -> do
             articleId <- runDB $ insert article
@@ -31,4 +31,4 @@ postBackendArticleAddR = do
             redirect $ BackendArticleListR
          _ -> defaultLayout $ do
                 setTitle "Please correct your entry form"
-                $(widgetFile "BackendArticleAddError")
+                $(widgetFile "BackendAdd")

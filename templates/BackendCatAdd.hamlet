@@ -1,4 +1,0 @@
-<form method=post enctype=#{enctype}>
-    ^{categoryWidget}
-    <div>
-        <input type=submit value="Create New Article">

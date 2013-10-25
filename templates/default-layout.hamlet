@@ -1,3 +1,8 @@
-$maybe msg <- mmsg
-    <div #message>#{msg}
-^{widget}
+<div .container>
+    $maybe msg <- mmsg
+        <div .row>
+            <div .col.md-12 .message>
+                <div #message>#{msg}
+    <div .row>
+        <div .col-md-12>
+            ^{widget}

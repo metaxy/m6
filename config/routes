@@ -9,4 +9,7 @@
 /backend/article/add BackendArticleAddR GET POST
 /backend/cat/list BackendCatListR GET
 /backend/cat/add BackendCatAddR GET POST
+/backend/sermon/speaker/add BackendSermonSpeakerAddR GET POST
+/backend/sermon/speaker/list BackendSermonSpeakerListR GET
+
 /a/#Text/#Text ArticleR GET

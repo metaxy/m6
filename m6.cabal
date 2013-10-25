@@ -25,6 +25,8 @@ library
                      Handler.BackendCatList
                      Handler.BackendCatAdd
                      Handler.Article
+                     Handler.BackendSermonSpeakerAdd
+                     Handler.BackendSermonSpeakerList
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
