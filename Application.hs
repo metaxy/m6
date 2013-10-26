@@ -26,9 +26,17 @@ import Handler.BackendArticleList
 import Handler.BackendArticleAdd
 import Handler.BackendCatList
 import Handler.BackendCatAdd
-import Handler.Article
 import Handler.BackendSermonSpeakerAdd
 import Handler.BackendSermonSpeakerList
+import Handler.BackendSermonGroupList
+import Handler.BackendSermonGroupAdd
+import Handler.BackendSermonSeriesList
+import Handler.BackendSermonSeriesAdd
+import Handler.Article
+import Handler.SermonsList
+import Handler.SermonsApi
+
+
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the

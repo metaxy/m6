@@ -436,10 +436,10 @@ html, body {
 @include page("lichtenberg", $color-lichtenberg);
 @include page("wartenberg", $color-wartenberg);
 @include page("spandau", $color-spandau);
-@include main-nav-color("202", $color-hellersdorf);
-@include main-nav-color("133", $color-lichtenberg);
-@include main-nav-color("134", $color-wartenberg);
-@include main-nav-color("135", $color-spandau);
+@include main-nav-color("hellerdorf", $color-hellersdorf);
+@include main-nav-color("lichtenberg", $color-lichtenberg);
+@include main-nav-color("wartenberg", $color-wartenberg);
+@include main-nav-color("spandau", $color-spandau);
 @include header("hellersdorf", $darkBGColor-hellersdorf);
 @include header("lichtenberg", $darkBGColor-lichtenberg);
 @include header("wartenberg", $darkBGColor-wartenberg);

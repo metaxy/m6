@@ -1,0 +1,9 @@
+<h1>#{title}
+$if null categories
+    <p> There are no categories
+$else
+    <ul>
+        $forall Entity categoryId category <- categories
+            <li>
+                <a> #{categoryTitle category}
+<a href=@{BackendCatAddR}> Add new Category</a>

@@ -1,7 +1,6 @@
 module Handler.BackendCatAdd where
 
 import Import
-
 entryForm :: Form Category
 entryForm = renderDivs $ Category
     <$> areq textField "Title" Nothing

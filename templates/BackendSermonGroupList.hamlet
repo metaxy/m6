@@ -1,0 +1,9 @@
+<h1>Groups
+$if null items
+    <p> There are no items
+$else
+    <ul>
+        $forall Entity itemId item <- items
+            <li>
+                <a> #{sermonGroupName item}
+<a href=@{BackendSermonGroupAddR}> Add new Group</a>

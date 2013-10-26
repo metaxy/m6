@@ -15,6 +15,7 @@ entryForm = renderDivs $ Article
     <*> (entityKey <$> areq (selectField getCategories) "Category" Nothing)
     <*> lift (liftIO getCurrentTime)
     
+    
 getBackendArticleAddR :: Handler Html
 getBackendArticleAddR = do
     (widget, enctype) <- generateFormPost entryForm

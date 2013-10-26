@@ -61,11 +61,11 @@ SermonSpeaker
 SermonSermons
     title Text
     alias Text
-    speakerId SermonSpeakerId Maybe
+    [language] Text Maybe
     picture Text Maybe
     notes Html Maybe
-    sermonCatId SermonCategoryId
-    [language] Text
+    sermonGroupId SermonGroupId
+    speakerId SermonSpeakerId Maybe
     deriving
     
 SermonFiles
@@ -74,14 +74,14 @@ SermonFiles
     path Text
     sermonId SermonSermonsId
     
-SermonCategory
+SermonGroup
     name Text
     alias Text
     
 SermonSeries
     name Text
     alias Text
-    desc Html
+    desc Html Maybe
     deriving
     
 SermonScripture

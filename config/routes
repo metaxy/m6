@@ -11,5 +11,13 @@
 /backend/cat/add BackendCatAddR GET POST
 /backend/sermon/speaker/add BackendSermonSpeakerAddR GET POST
 /backend/sermon/speaker/list BackendSermonSpeakerListR GET
+/backend/sermon/group/list BackendSermonGroupListR GET
+/backend/sermon/group/add BackendSermonGroupAddR GET POST
+/backend/sermon/series/list BackendSermonSeriesListR GET
+/backend/sermon/series/add BackendSermonSeriesAddR GET POST
 
 /a/#Text/#Text ArticleR GET
+/sermons/#Text/#Text SermonsListR GET POST
+/api/sermons/#Text SermonsApiR GET
+
+

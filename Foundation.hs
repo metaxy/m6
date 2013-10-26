@@ -65,7 +65,8 @@ instance Yesod App where
     defaultLayout widget = do
         master <- getYesod
         mmsg <- getMessage
-
+        menuTop <- widgetToPageContent $ do 
+            $(widgetFile "menu-top")
         -- We break up the default layout into two components:
         -- default-layout is the contents of the body tag, and
         -- default-layout-wrapper is the entire page. Since the final

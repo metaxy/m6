@@ -1,0 +1,16 @@
+<nav .navbar .navbar-default #main-nav-bar>
+    <div .navbar-header>
+        <button type="button" .navbar-toggle data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span>Gemeinde auswählen
+    <div .collapse .navbar-collapse .navbar-ex1-collapse>
+        <ul #main-menu .nav .navbar-nav>
+            <li>
+                <a href=@{HomeR}>Start
+            <li .item-hellersorf>
+                <a href=@{ArticleR "hellersdorf" "start"}>Hellersdorf
+            <li .item-lichtenberg>
+                <a href=@{ArticleR "lichtenberg" "start"}>Lichtenberg
+            <li .item-wartenberg>
+                <a href=@{ArticleR "wartenberg" "start"}>Wartenberg
+            <li .item-spandau>
+                <a href=@{ArticleR "spandau" "start"}>Spandau

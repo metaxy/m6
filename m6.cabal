@@ -20,13 +20,20 @@ library
                      Settings.StaticFiles
                      Settings.Development
                      Handler.Home
+                     Handler.Article
+                     Handler.SermonsList
+                     Handler.SermonsApi
                      Handler.BackendArticleList
                      Handler.BackendArticleAdd
                      Handler.BackendCatList
                      Handler.BackendCatAdd
-                     Handler.Article
                      Handler.BackendSermonSpeakerAdd
                      Handler.BackendSermonSpeakerList
+                     Handler.BackendSermonGroupList
+                     Handler.BackendSermonGroupAdd
+                     Handler.BackendSermonSeriesList
+                     Handler.BackendSermonSeriesAdd
+
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

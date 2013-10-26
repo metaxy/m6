@@ -1,0 +1,10 @@
+<div .container>
+        <div #toolbar .row>
+            <div .col-md-3 .col-sm-6>
+                ^{pageBody module1}
+            <div .col-md-3 .col-sm-6>
+                ^{pageBody module2}
+            <div .col-md-3 .col-sm-6>
+                ^{pageBody module3}
+            <div .col-md-3 .col-sm-6>
+                ^{pageBody module4}

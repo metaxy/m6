@@ -1,0 +1,9 @@
+<h1>Series
+$if null items
+    <p> There are no items
+$else
+    <ul>
+        $forall Entity itemId item <- items
+            <li>
+                <a> #{sermonSeriesName item}
+<a href=@{BackendSermonSeriesAddR}> Add new Series</a>

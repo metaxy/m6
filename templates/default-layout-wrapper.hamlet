@@ -1,5 +1,5 @@
 $newline always
-\<!doctype html>
+$doctype 5
 \<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 \<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 \<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
@@ -27,8 +27,10 @@ $newline always
             <header id="header">
                 <div .container>
                     <div .row>
-                        <div .col-sm-3 id="header-img">
+                        <div .col-sm-3 #header-img>
                             <a href="@{HomeR}">
                                 <img src="/static/images/logo.png" .img-responsive alt="ECG Logo">
-         
+                        <div .col-sm-9>
+                            ^{pageBody menuTop}
+                                    
             ^{pageBody pc}
