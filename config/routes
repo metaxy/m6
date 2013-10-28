@@ -18,6 +18,6 @@
 
 /a/#Text/#Text ArticleR GET
 /sermons/#Text/#Text SermonsListR GET POST
-/api/sermons/#Text SermonsApiR GET
+/api/sermons/#String SermonsApiR GET
 
 
