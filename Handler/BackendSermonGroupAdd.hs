@@ -1,11 +1,14 @@
 module Handler.BackendSermonGroupAdd where
 
 import Import
+getCategories :: Handler (OptionList (Entity Category)) 
+getCategories = optionsPersist [] [Asc CategoryTitle] categoryTitle 
+
 entryForm :: Form SermonGroup
 entryForm = renderDivs $ SermonGroup
     <$> areq textField "Name" Nothing
     <*> areq textField "Alias" Nothing
-    
+    <*> (entityKey <$> areq (selectField getCategories) "Category" Nothing)
     
 getBackendSermonGroupAddR :: Handler Html
 getBackendSermonGroupAddR = do

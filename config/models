@@ -58,10 +58,10 @@ SermonSpeaker
     bio Html Maybe
     deriving
     
-SermonSermons
+SermonSermon
     title Text
     alias Text
-    [language] Text Maybe
+    language Text
     picture Text Maybe
     notes Html Maybe
     sermonGroupId SermonGroupId
@@ -72,11 +72,12 @@ SermonFiles
     title Text
     type Text
     path Text
-    sermonId SermonSermonsId
+    sermonId SermonSermonId
     
 SermonGroup
     name Text
     alias Text
+    catId CategoryId
     
 SermonSeries
     name Text
@@ -91,6 +92,6 @@ SermonScripture
     cap2 Int
     vers2 Int
     text Text Maybe
-    sermonId SermonSermonsId
+    sermonId SermonSermonId
  
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)

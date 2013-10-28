@@ -8,7 +8,7 @@ getCategories :: Handler (OptionList (Entity Category))
 getCategories = optionsPersist [] [Asc CategoryTitle] categoryTitle 
 
 entryForm :: Form Article
-entryForm = renderDivs $ Article
+entryForm = renderBootstrap $ Article
     <$> areq textField "Title" Nothing
     <*> areq nicHtmlField "Content" Nothing
     <*> areq textField "Alias" Nothing
