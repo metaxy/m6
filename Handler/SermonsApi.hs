@@ -1,10 +1,14 @@
 module Handler.SermonsApi where
 
 import Import
-
+import Prelude
         
-getSermonsApiR :: Text -> Handler Html
-getSermonsApiR "list_speakers" = error "not"
+getSermonsApiR :: String -> Handler Html
+getSermonsApiR file = do
+    content <- liftIO $ readFile file
+    defaultLayout $ do
+        [whamlet|#{content}|]
+    
     
     --read json file
     --insert json into db
