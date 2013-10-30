@@ -4,7 +4,7 @@
 /favicon.ico FaviconR GET
 /robots.txt RobotsR GET
 
-/ HomeR GET POST
+/ HomeR GET
 /backend/article/list BackendArticleListR GET
 /backend/article/add BackendArticleAddR GET POST
 /backend/cat/list BackendCatListR GET
