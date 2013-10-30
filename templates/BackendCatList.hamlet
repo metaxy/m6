@@ -5,5 +5,5 @@ $else
     <ul>
         $forall Entity categoryId category <- categories
             <li>
-                <a> #{categoryTitle category}
+                <a> #{categoryName category}
 <a href=@{BackendCatAddR}> Add new Category</a>

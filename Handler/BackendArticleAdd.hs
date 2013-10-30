@@ -5,7 +5,7 @@ import Data.Time
 import Yesod.Form.Nic (YesodNic,nicHtmlField)
 
 getCategories :: Handler (OptionList (Entity Category)) 
-getCategories = optionsPersist [] [Asc CategoryTitle] categoryTitle 
+getCategories = optionsPersist [] [Asc CategoryName] categoryName
 
 entryForm :: Form Article
 entryForm = renderBootstrap $ Article

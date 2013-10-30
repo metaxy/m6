@@ -2,7 +2,7 @@ module Handler.BackendSermonGroupAdd where
 
 import Import
 getCategories :: Handler (OptionList (Entity Category)) 
-getCategories = optionsPersist [] [Asc CategoryTitle] categoryTitle 
+getCategories = optionsPersist [] [Asc CategoryName] categoryName 
 
 entryForm :: Form SermonGroup
 entryForm = renderDivs $ SermonGroup

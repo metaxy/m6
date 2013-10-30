@@ -3,7 +3,7 @@ module Handler.BackendCatAdd where
 import Import
 entryForm :: Form Category
 entryForm = renderDivs $ Category
-    <$> areq textField "Title" Nothing
+    <$> areq textField "Name" Nothing
     <*> areq textField "Alias" Nothing
     
 getBackendCatAddR :: Handler Html
@@ -17,7 +17,7 @@ postBackendCatAddR = do
     case res of
          FormSuccess category -> do
             articleId <- runDB $ insert category
-            setMessage $ toHtml $ (categoryTitle category) <> " created"
+            setMessage $ toHtml $ (categoryName category) <> " created"
             redirect $ BackendCatListR
          _ -> defaultLayout $ do
                 setTitle "Please correct your entry form"
