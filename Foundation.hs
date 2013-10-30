@@ -67,11 +67,6 @@ instance Yesod App where
         mmsg <- getMessage
         menuTop <- widgetToPageContent $ do 
             $(widgetFile "menu-top")
-        -- We break up the default layout into two components:
-        -- default-layout is the contents of the body tag, and
-        -- default-layout-wrapper is the entire page. Since the final
-        -- value passed to hamletToRepHtml cannot be a widget, this allows
-        -- you to use normal widget features in default-layout.
 
         pc <- widgetToPageContent $ do
             $(combineStylesheets 'StaticR
@@ -80,6 +75,8 @@ instance Yesod App where
             $(widgetFile "default-layout")
         giveUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 
+        
+        
     -- This is done to provide an optimization for serving static files from
     -- a separate domain. Please see the staticRoot setting in Settings.hs
     urlRenderOverride y (StaticR s) =

@@ -1,9 +1,0 @@
-<a>
-    <div .row .top>
-        <div .col-xs-5>
-            <div .icon-box>
-                <i .#{icon}>
-        <div .col-xs-7>
-            #{title}
-<div .content>
-    #{text}

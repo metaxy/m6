@@ -1,0 +1,8 @@
+<nav .navbar .navbar-default #second-nav-bar>
+    <div .navbar-header>
+        <button type="button" .navbar-toggle data-toggle="collapse" data-target=".navbar-secondmenu-collapse">
+            <span>Menü
+                        
+    <div .collapse .navbar-collapse .navbar-secondmenu-collapse>
+        ^{menu}
+

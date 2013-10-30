@@ -1,3 +1,0 @@
-<h1> #{articleTitle (entityVal article)}
-<article> #{articleContent (entityVal article)}
-
