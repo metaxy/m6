@@ -1,23 +1,22 @@
 <ul .nav .navbar-nav>
     <li>
+        <a href=@{ArticleR "hellersdorf" "ueber-uns"}>Über uns
+    <li>
         <a href=@{ArticleR "hellersdorf" "kalender"}>Kalender
     <li>
-        <a href=@{ArticleR "hellersdorf" "kalender"}>Anfahrt
+        <a href=@{ArticleR "hellersdorf" "anfahrt"}>Anfahrt
     <li>
-        <a href=@{ArticleR "hellersdorf" "kalender"}>Galerie
+        <a href=@{ArticleR "hellersdorf" "medien"}>Medien
     <li>
-        <a href=@{ArticleR "hellersdorf" "kalender"}>Medien
+        <a href=@{ArticleR "hellersdorf" "jugend"}>Jugend
     <li>
-        <a href=@{ArticleR "hellersdorf" "kalender"}>Jugend
-    
+        <a href=@{ArticleR "hellersdorf" "kinderstunde"}>Kinderstunde
     <li>
-        <a href=@{ArticleR "hellersdorf" "kalender"}>Kinderstunde
-    
+        <a href=@{ArticleR "hellersdorf" "gebetsstunde"}>Gebetsstunde
     <li>
-        <a href=@{ArticleR "hellersdorf" "kalender"}>Gebetsstunde
-    
+        <a href=@{ArticleR "hellersdorf" "hauskreis"}>Hauskreis
     <li>
-        <a href=@{ArticleR "hellersdorf" "kalender"}>Hauskreis
+        <a href=@{ArticleR "hellersdorf" "galerie"}>Galerie
     <li>
-        <a href=@{ArticleR "hellersdorf" "kalender"}>Kontakt
+        <a href=@{ArticleR "hellersdorf" "kontakt"}>Kontakt
 

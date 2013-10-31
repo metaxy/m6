@@ -14,6 +14,9 @@ entryForm = renderBootstrap $ Article
     <*> areq textField "Alias" Nothing
     <*> (entityKey <$> areq (selectField getCategories) "Category" Nothing)
     <*> lift (liftIO getCurrentTime)
+    <*> aopt textField "Add Js" Nothing
+    <*> aopt textField "Add Css" Nothing
+   
     
     
 getBackendArticleAddR :: Handler Html

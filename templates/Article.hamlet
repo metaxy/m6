@@ -1,9 +1,12 @@
 <div .dark-bg>
-    <div .container>
-        <div .row>
+    <div>
+        <div .container>
+            <div .row>
+                <div .col-md-12>
+                    ^{pageBody mTop}
+<div .container>
+    <div .row>
             <div .col-md-12>
-                ^{pageBody mTop}
-
-<h1> #{articleTitle (entityVal article)}
-<article> #{articleContent (entityVal article)}
+                <h1> #{articleTitle (entityVal article)}
+                <article> #{articleContent (entityVal article)}
 

@@ -1,0 +1,14 @@
+<ul .nav .navbar-nav>
+    <li>
+        <a href=@{ArticleR "lichtenberg" "ueber-uns"}>Über uns
+    <li>
+        <a href=@{ArticleR "lichtenberg" "kalender"}>Kalender
+    <li>
+        <a href=@{ArticleR "lichtenberg" "anfahrt"}>Anfahrt
+    <li>
+        <a href=@{ArticleR "lichtenberg" "medien"}>Medien
+    <li>
+        <a href=@{ArticleR "lichtenberg" "jugend"}>Jugend
+    <li>
+        <a href=@{ArticleR "lichtenberg" "kontakt"}>Kontakt
+

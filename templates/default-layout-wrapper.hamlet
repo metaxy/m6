@@ -13,23 +13,18 @@ $doctype 5
         <meta name="author" content="">
 
         <meta name="viewport" content="width=device-width,initial-scale=1">
-
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+        
         ^{pageHead pc}
 
-        \<!--[if lt IE 9]>
-        \<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        \<![endif]-->
-
-        <script>
-          document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
     <body>
-        <div id="content_wrapper">
-            <header id="header">
+        <div #content_wrapper>
+            <header #header>
                 <div .container>
                     <div .row>
                         <div .col-sm-3 #header-img>
-                            <a href="@{HomeR}">
-                                <img src="/static/images/logo.png" .img-responsive alt="ECG Logo">
+                            <a href=@{HomeR}>
+                                <img src=/static/images/logo.png .img-responsive alt="ECG Logo">
                         <div .col-sm-9>
                             ^{pageBody menuTop}
                                     

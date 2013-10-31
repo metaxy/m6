@@ -17,7 +17,10 @@ dispatchModules "hellersdorf" "start" = do
 dispatchModules _ _ = Nothing
 
 dispatchSecondMenu :: Text -> Text -> Widget
---secondMenu "hellersdorf" _ = toWidget $(widgetFile "second-menu-hellersdorf")
+dispatchSecondMenu "hellersdorf" _ = toWidget $(widgetFile "second-menu-hellersdorf")
+dispatchSecondMenu "lichtenberg" _ = toWidget $(widgetFile "second-menu-lichtenberg")
+dispatchSecondMenu "wartenberg" _ = toWidget $(widgetFile "second-menu-wartenberg")
+dispatchSecondMenu "spandau" _ = toWidget $(widgetFile "second-menu-spandau")
 dispatchSecondMenu _ _ = toWidget $(widgetFile "second-menu-hellersdorf")
 
 secondMenu :: Text -> Text -> Widget
