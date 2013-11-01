@@ -1,0 +1,14 @@
+<nav .navbar .navbar-default #main-nav-bar>
+    <ul #main-menu .nav .navbar-nav>
+        <li>
+            <a href=@{HomeR}>Start
+        <li>
+            <a href=@{BackendCatListR}>Kategorien
+        <li>
+            <a href=@{BackendArticleListR}>Artikeln
+        <li>
+            <a href=@{BackendSermonGroupListR}>Predigt Gruppen
+        <li>
+            <a href=@{BackendSermonSeriesListR}>Serien
+        <li>
+            <a href=@{BackendSermonSpeakerListR}>Prediger

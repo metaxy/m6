@@ -9,7 +9,7 @@ entryForm = renderDivs $ Category
 getBackendCatAddR :: Handler Html
 getBackendCatAddR = do
     (widget, enctype) <- generateFormPost entryForm
-    defaultLayout $ do $(widgetFile "BackendAdd")
+    backendDefaultLayout $ do $(widgetFile "BackendAdd")
 
 postBackendCatAddR :: Handler Html
 postBackendCatAddR = do
@@ -19,6 +19,6 @@ postBackendCatAddR = do
             articleId <- runDB $ insert category
             setMessage $ toHtml $ (categoryName category) <> " created"
             redirect $ BackendCatListR
-         _ -> defaultLayout $ do
+         _ -> backendDefaultLayout $ do
                 setTitle "Please correct your entry form"
                 $(widgetFile "BackendAdd")

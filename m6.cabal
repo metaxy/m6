@@ -33,6 +33,7 @@ library
                      Handler.BackendSermonGroupAdd
                      Handler.BackendSermonSeriesList
                      Handler.BackendSermonSeriesAdd
+                     Handler.Lang
 
 
     if flag(dev) || flag(library-only)

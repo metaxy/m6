@@ -5,4 +5,4 @@ import Import
 getBackendCatListR :: Handler Html
 getBackendCatListR = do  
     categories <- runDB $ selectList [] [Desc CategoryName]
-    defaultLayout $ do $(widgetFile "BackendCatList")
+    backendDefaultLayout $ do $(widgetFile "BackendCatList")

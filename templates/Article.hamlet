@@ -7,6 +7,6 @@
 <div .container>
     <div .row>
             <div .col-md-12>
-                <h1> #{articleTitle (entityVal article)}
+                <h1> _{MsgHello} #{articleTitle (entityVal article)}
                 <article> #{articleContent (entityVal article)}
 

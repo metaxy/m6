@@ -21,3 +21,4 @@
 /api/sermons/#String SermonsApiR GET
 
 
+/lang LangR POST

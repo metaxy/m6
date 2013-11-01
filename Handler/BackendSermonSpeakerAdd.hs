@@ -13,7 +13,7 @@ entryForm = renderDivs $ SermonSpeaker
 getBackendSermonSpeakerAddR :: Handler Html
 getBackendSermonSpeakerAddR = do
     (widget, enctype) <- generateFormPost entryForm
-    defaultLayout $ do $(widgetFile "BackendAdd")
+    backendDefaultLayout $ do $(widgetFile "BackendAdd")
 
 postBackendSermonSpeakerAddR :: Handler Html
 postBackendSermonSpeakerAddR = do
@@ -23,6 +23,6 @@ postBackendSermonSpeakerAddR = do
             itemId <- runDB $ insert d
             setMessage $ toHtml $ (sermonSpeakerName d) <> " created"
             redirect $ BackendSermonSpeakerListR
-         _ -> defaultLayout $ do
+         _ -> backendDefaultLayout $ do
                 setTitle "Please correct your entry form"
                 $(widgetFile "BackendAdd")

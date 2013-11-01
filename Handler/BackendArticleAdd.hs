@@ -22,7 +22,7 @@ entryForm = renderBootstrap $ Article
 getBackendArticleAddR :: Handler Html
 getBackendArticleAddR = do
     (widget, enctype) <- generateFormPost entryForm
-    defaultLayout $ do $(widgetFile "BackendAdd")
+    backendDefaultLayout $ do $(widgetFile "BackendAdd")
 
 
 postBackendArticleAddR :: Handler Html
@@ -33,6 +33,6 @@ postBackendArticleAddR = do
             articleId <- runDB $ insert article
             setMessage $ toHtml $ (articleTitle article) <> " created"
             redirect $ BackendArticleListR
-         _ -> defaultLayout $ do
+         _ -> backendDefaultLayout $ do
                 setTitle "Please correct your entry form"
                 $(widgetFile "BackendAdd")

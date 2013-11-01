@@ -5,4 +5,4 @@ import Import
 getBackendSermonGroupListR :: Handler Html
 getBackendSermonGroupListR =  do  
     items <- runDB $ selectList [] [Desc SermonGroupName]
-    defaultLayout $ do $(widgetFile "BackendSermonGroupList")
+    backendDefaultLayout $ do $(widgetFile "BackendSermonGroupList")
