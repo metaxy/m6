@@ -86,6 +86,7 @@ library
                  , monad-logger                  >= 0.3
                  , fast-logger                   >= 0.3
                  , time                          >= 1.4
+                 , ghc-prim
 
 executable         m6
     if flag(library-only)

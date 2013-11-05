@@ -71,7 +71,7 @@ SermonSermon
     deriving
     
 SermonFiles
-    title Text
+    title Text Maybe
     type Text
     path Text
     sermonId SermonSermonId

@@ -1,0 +1,8 @@
+{
+    "itemTitle":"Test Predigt",
+    "itemAlias":"test-predigt",
+    "itemLang" : ["de"],
+    "itemFiles" : [ 
+        {"fileType":"mp3", "filePath":"./test.mp3"}
+    ]
+}

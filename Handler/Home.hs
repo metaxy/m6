@@ -1,6 +1,6 @@
 {-# LANGUAGE TupleSections, OverloadedStrings #-}
 module Handler.Home where
-
+import Handler.Article
 import Import
 
 -- This is a handler function for the GET request method on the HomeR
@@ -11,4 +11,4 @@ import Import
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler Html
-getHomeR = error "todo"
+getHomeR = getArticleR "home" "home"
