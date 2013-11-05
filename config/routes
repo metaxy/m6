@@ -15,10 +15,11 @@
 /backend/sermon/group/add BackendSermonGroupAddR GET POST
 /backend/sermon/series/list BackendSermonSeriesListR GET
 /backend/sermon/series/add BackendSermonSeriesAddR GET POST
+/article/#Text/#Text ArticleR GET
 
-/a/#Text/#Text ArticleR GET
 /sermons/#Text/#Text SermonsListR GET POST
 /api/sermons/#String SermonsApiR GET
-
+/api/sermons-insert SermonsInsertR GET POST
 
 /lang LangR POST
+

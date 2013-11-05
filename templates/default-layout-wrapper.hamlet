@@ -33,5 +33,7 @@ $doctype 5
                     <option value=de>Deutsch
                     <option value=ru>Russisch
                 <input type=submit value=Ok> 
-              
+             <p> 
+                <a href=@{AuthR LoginR}>
+                    Login 
             ^{pageBody pc}

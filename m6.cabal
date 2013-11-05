@@ -34,6 +34,7 @@ library
                      Handler.BackendSermonSeriesList
                      Handler.BackendSermonSeriesAdd
                      Handler.Lang
+                     Handler.SermonsInsert
 
 
     if flag(dev) || flag(library-only)
