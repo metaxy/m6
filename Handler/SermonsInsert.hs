@@ -38,7 +38,10 @@ data InsertItem = InsertItem {
     newGroup :: Maybe InsertGroup,
     newSpeaker :: Maybe InsertSpeaker,
     itemFiles :: [InsertFile],
-    picture :: Maybe Text
+    picture :: Maybe Text,
+    itemCatAlias :: Text,
+    itemGroup :: Maybe Text,
+    itemSpeaker :: Maybe Text
 } deriving Generic
 
 
@@ -47,12 +50,20 @@ instance FromJSON InsertFile
 instance FromJSON InsertScripture
 instance FromJSON InsertSpeaker
 instance FromJSON InsertGroup
+
+
 getSermonsInsertR :: Handler Html
 getSermonsInsertR = error "Not yet implemented: getSermonsInsertR"
 
 postSermonsInsertR :: Handler RepPlain
-
 postSermonsInsertR = do
-    value <- parseJsonBody_ 
-    let a = itemTitle value
+    val <- parseJsonBody_ 
+    -- get speaker
+    speakerId <- case (itemSpeaker val) of
+        Just speaker -> runDB $ getBy404 $ UniqueSpeakerAlias speaker
+        Nothing -> runDB $ getBy404 $ UniqueSpeakerAlias ""
+    
+    let newSpeakerID = fmap (\x -> runDB $ insert (SermonSpeaker (speakerName x) (speakerAlias x) Nothing Nothing)) (newSpeaker val)
+    
+    let a = itemTitle val
     return (RepPlain (toContent a))

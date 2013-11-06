@@ -4,5 +4,8 @@
     "itemLang" : ["de"],
     "itemFiles" : [ 
         {"fileType":"mp3", "filePath":"./test.mp3"}
-    ]
+    ],
+    "itemCatAlias": "hellersdorf",
+    "itemGroup" : "predigt",
+    "itemSpeaker" : "wilhelm-walger"
 }

@@ -4,7 +4,7 @@ import Import
 import Data.Aeson
     
 instance ToJSON SermonGroup where
-     toJSON (SermonGroup name alias catId) = object ["name" .= name, "alias" .= alias, "catID" .= catId]
+     toJSON (SermonGroup name alias) = object ["name" .= name, "alias" .= alias]
      
 instance ToJSON SermonSeries where
      toJSON (SermonSeries name alias _) = object ["name" .= name, "alias" .= alias]

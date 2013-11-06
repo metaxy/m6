@@ -58,6 +58,7 @@ SermonSpeaker
     alias Text
     pic Text Maybe
     bio Html Maybe
+    UniqueSpeakerAlias alias
     deriving
     
 SermonSermon
@@ -79,12 +80,13 @@ SermonFiles
 SermonGroup
     name Text
     alias Text
-    catId CategoryId
+    UniqueGroupAlias alias
     
 SermonSeries
     name Text
     alias Text
     desc Html Maybe
+    UniqueSeriesAlias alias
     deriving
     
 SermonScripture
