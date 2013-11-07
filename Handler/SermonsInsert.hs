@@ -35,13 +35,11 @@ data InsertItem = InsertItem {
     itemTitle :: Text, 
     itemAlias :: Text,
     itemLang :: [Text],
-    newGroup :: Maybe InsertGroup,
-    newSpeaker :: Maybe InsertSpeaker,
+    itemGroup :: Either InsertGroup Text,
+    itemSpeaker :: Either InsertSpeaker Text,
     itemFiles :: [InsertFile],
     picture :: Maybe Text,
-    itemCatAlias :: Text,
-    itemGroup :: Maybe Text,
-    itemSpeaker :: Maybe Text
+    itemCatAlias :: Text
 } deriving Generic
 
 
@@ -57,10 +55,14 @@ getSermonsInsertR = error "Not yet implemented: getSermonsInsertR"
 
 postSermonsInsertR :: Handler RepPlain
 postSermonsInsertR = do
-    val <- parseJsonBody_ 
-    speakerId <- case (itemSpeaker val) of
-        Just speaker -> fmap Just $ runDB $ getBy $ UniqueSpeakerAlias speaker
-        Nothing -> return Nothing
+    val <- parseJsonBody_
+    g <- itemGroup val
+    case g of
+         Left i -> fmap Just $ runDB $ insert (SermonSpeaker "" "" Nothing Nothing)
+         Right t -> entityKey $ runDB $ getBy $ UniqueSpeakerAlias speaker
+    --speakerId <- case (itemSpeaker val) of
+      --  Just speaker -> fmap Just $ runDB $ getBy $ UniqueSpeakerAlias speaker
+      --  Nothing -> return Nothing
     --speakerId2 <- case speakerId of
       --  Just s -> return $ entityKey s
         --Nothing -> runDB $ insert (SermonSpeaker "" "" Nothing Nothing)
