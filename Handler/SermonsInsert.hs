@@ -6,7 +6,7 @@ import Import
 import Data.Aeson
 import Data.Aeson.TH
 import GHC.Generics
-
+import qualified Data.Text as T
 -- curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d @test.json http://localhost:3000/api/sermons-insert
 -- curl -X POST -d @test.json http://localhost:3000/api/sermons-insert
 data InsertFile = InsertFile { 
@@ -58,12 +58,12 @@ getSermonsInsertR = error "Not yet implemented: getSermonsInsertR"
 postSermonsInsertR :: Handler RepPlain
 postSermonsInsertR = do
     val <- parseJsonBody_ 
-    -- get speaker
     speakerId <- case (itemSpeaker val) of
-        Just speaker -> runDB $ getBy404 $ UniqueSpeakerAlias speaker
-        Nothing -> runDB $ getBy404 $ UniqueSpeakerAlias ""
-    
-    let newSpeakerID = fmap (\x -> runDB $ insert (SermonSpeaker (speakerName x) (speakerAlias x) Nothing Nothing)) (newSpeaker val)
+        Just speaker -> fmap Just $ runDB $ getBy $ UniqueSpeakerAlias speaker
+        Nothing -> return Nothing
+    --speakerId2 <- case speakerId of
+      --  Just s -> return $ entityKey s
+        --Nothing -> runDB $ insert (SermonSpeaker "" "" Nothing Nothing)
     
     let a = itemTitle val
     return (RepPlain (toContent a))
