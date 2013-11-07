@@ -64,7 +64,7 @@ SermonSpeaker
 SermonSermon
     title Text
     alias Text
-    language Text
+    language [Text]
     picture Text Maybe
     notes Html Maybe
     sermonGroupId SermonGroupId

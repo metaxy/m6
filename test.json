@@ -3,7 +3,10 @@
     "itemAlias":"test-predigt",
     "itemLang" : ["de"],
     "itemFiles" : [ 
-        {"fileType":"mp3", "filePath":"./test.mp3"}
+        {"fileType":"mp3", "filePath":"./test.mp3", "fileTitle":"Tes Audio"}
+    ],
+    "itemScriptures" : [
+        {"sBook":1, "sCap1":1, "sVers1":1, "sCap2":2,"sVers2":3}
     ],
     "itemCatAlias": "hellersdorf",
     "itemGroup" : "predigt",

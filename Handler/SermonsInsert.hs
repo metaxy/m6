@@ -4,9 +4,7 @@ module Handler.SermonsInsert where
 
 import Import
 import Data.Aeson
-import Data.Aeson.TH
 import GHC.Generics
-import qualified Data.Text as T
 -- curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d @test.json http://localhost:3000/api/sermons-insert
 -- curl -X POST -d @test.json http://localhost:3000/api/sermons-insert
 data InsertFile = InsertFile { 
@@ -35,9 +33,11 @@ data InsertScripture = InsertScripture {
 data InsertItem = InsertItem { 
     itemTitle :: Text, 
     itemAlias :: Text,
-    itemLang :: Text,
-    itemGroup :: Either InsertGroup Text,
-    itemSpeaker :: Either InsertSpeaker Text,
+    itemLang :: [Text],
+    itemGroupNew :: Maybe InsertGroup,
+    itemGroup :: Maybe Text,
+    itemSpeakerNew :: Maybe InsertSpeaker,
+    itemSpeaker :: Maybe Text,
     itemFiles :: [InsertFile],
     itemPicture :: Maybe Text,
     itemCatAlias :: Text,
@@ -50,6 +50,12 @@ instance FromJSON InsertFile
 instance FromJSON InsertScripture
 instance FromJSON InsertSpeaker
 instance FromJSON InsertGroup
+
+maybeToEither :: (Maybe a) -> (Maybe Text) -> Either a Text
+maybeToEither Nothing (Just a) = Right a
+maybeToEither (Just b) Nothing = Left b
+maybeToEither (Just b) (Just _) = Left b
+maybeToEither Nothing Nothing = Right ""
 
 cScripture :: SermonSermonId -> InsertScripture -> SermonScripture
 cScripture sermonId x = SermonScripture (sBook x) (sCap1 x) (sVers1 x) (sCap2 x) (sVers2 x) (sText x) sermonId
@@ -64,11 +70,11 @@ postSermonsInsertR :: Handler RepPlain
 postSermonsInsertR = do
     val <- parseJsonBody_
     -- get speakerid or create new one
-    speakerId <- case itemSpeaker val of
+    speakerId <- case (maybeToEither (itemSpeakerNew val) (itemSpeaker val)) of
          Left i -> runDB $ insert (SermonSpeaker (speakerName i) (speakerAlias i) Nothing Nothing)
          Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueSpeakerAlias t
     -- get groupid or create new one
-    groupId <- case itemGroup val of
+    groupId <- case (maybeToEither (itemGroupNew val) (itemGroup val)) of
          Left i -> runDB $ insert (SermonGroup (groupName i) (groupAlias i))
          Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueGroupAlias t
     -- insert sermon 
