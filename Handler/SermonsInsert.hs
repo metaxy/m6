@@ -22,6 +22,7 @@ data InsertGroup = InsertGroup {
     groupName :: Text, 
     groupAlias :: Text
 } deriving Generic
+
 data InsertScripture = InsertScripture { 
     sBook :: Int, 
     sCap1 :: Int,
@@ -34,12 +35,13 @@ data InsertScripture = InsertScripture {
 data InsertItem = InsertItem { 
     itemTitle :: Text, 
     itemAlias :: Text,
-    itemLang :: [Text],
+    itemLang :: Text,
     itemGroup :: Either InsertGroup Text,
     itemSpeaker :: Either InsertSpeaker Text,
     itemFiles :: [InsertFile],
-    picture :: Maybe Text,
-    itemCatAlias :: Text
+    itemPicture :: Maybe Text,
+    itemCatAlias :: Text,
+    itemScriptures :: [InsertScripture]
 } deriving Generic
 
 
@@ -49,6 +51,11 @@ instance FromJSON InsertScripture
 instance FromJSON InsertSpeaker
 instance FromJSON InsertGroup
 
+cScripture :: SermonSermonId -> InsertScripture -> SermonScripture
+cScripture sermonId x = SermonScripture (sBook x) (sCap1 x) (sVers1 x) (sCap2 x) (sVers2 x) (sText x) sermonId
+
+cFile :: SermonSermonId -> InsertFile -> SermonFile
+cFile sermonId x = SermonFile (fileTitle x) (fileType x) (filePath x) sermonId
 
 getSermonsInsertR :: Handler Html
 getSermonsInsertR = error "Not yet implemented: getSermonsInsertR"
@@ -56,16 +63,21 @@ getSermonsInsertR = error "Not yet implemented: getSermonsInsertR"
 postSermonsInsertR :: Handler RepPlain
 postSermonsInsertR = do
     val <- parseJsonBody_
-    g <- itemGroup val
-    case g of
-         Left i -> fmap Just $ runDB $ insert (SermonSpeaker "" "" Nothing Nothing)
-         Right t -> entityKey $ runDB $ getBy $ UniqueSpeakerAlias speaker
-    --speakerId <- case (itemSpeaker val) of
-      --  Just speaker -> fmap Just $ runDB $ getBy $ UniqueSpeakerAlias speaker
-      --  Nothing -> return Nothing
-    --speakerId2 <- case speakerId of
-      --  Just s -> return $ entityKey s
-        --Nothing -> runDB $ insert (SermonSpeaker "" "" Nothing Nothing)
+    -- get speakerid or create new one
+    speakerId <- case itemSpeaker val of
+         Left i -> runDB $ insert (SermonSpeaker (speakerName i) (speakerAlias i) Nothing Nothing)
+         Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueSpeakerAlias t
+    -- get groupid or create new one
+    groupId <- case itemGroup val of
+         Left i -> runDB $ insert (SermonGroup (groupName i) (groupAlias i))
+         Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueGroupAlias t
+    -- insert sermon 
+    sermonId <- runDB $ insert $
+        SermonSermon (itemTitle val) (itemAlias val) (itemLang val) (itemPicture val) Nothing groupId (Just speakerId)
+    -- insert scripture references
+    _ <- mapM (runDB . insert . (cScripture sermonId)) (itemScriptures val)
+    -- insert files
+    _ <- mapM (runDB . insert . (cFile sermonId)) (itemFiles val)
     
     let a = itemTitle val
     return (RepPlain (toContent a))

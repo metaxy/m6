@@ -71,7 +71,7 @@ SermonSermon
     speakerId SermonSpeakerId Maybe
     deriving
     
-SermonFiles
+SermonFile
     title Text Maybe
     type Text
     path Text
