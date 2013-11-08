@@ -34,14 +34,14 @@ data InsertItem = InsertItem {
     itemTitle :: Text, 
     itemAlias :: Text,
     itemLang :: [Text],
+    itemCatAlias :: Text,
+    itemScriptures :: [InsertScripture],
+    itemFiles :: [InsertFile],
     itemGroupNew :: Maybe InsertGroup,
     itemGroup :: Maybe Text,
     itemSpeakerNew :: Maybe InsertSpeaker,
     itemSpeaker :: Maybe Text,
-    itemFiles :: [InsertFile],
-    itemPicture :: Maybe Text,
-    itemCatAlias :: Text,
-    itemScriptures :: [InsertScripture]
+    itemPicture :: Maybe Text
 } deriving Generic
 
 
@@ -54,7 +54,7 @@ instance FromJSON InsertGroup
 maybeToEither :: (Maybe a) -> (Maybe Text) -> Either a Text
 maybeToEither Nothing (Just a) = Right a
 maybeToEither (Just b) Nothing = Left b
-maybeToEither (Just b) (Just _) = Left b
+maybeToEither (Just b) _ = Left b
 maybeToEither Nothing Nothing = Right ""
 
 cScripture :: SermonSermonId -> InsertScripture -> SermonScripture
@@ -79,7 +79,7 @@ postSermonsInsertR = do
          Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueGroupAlias t
     -- insert sermon 
     sermonId <- runDB $ insert $
-        SermonSermon (itemTitle val) (itemAlias val) (itemLang val) (itemPicture val) Nothing groupId (Just speakerId)
+        SermonSermon (itemTitle val) (itemAlias val) (itemLang val) Nothing Nothing groupId (Just speakerId)
     -- insert scripture references
     _ <- mapM (runDB . insert . (cScripture sermonId)) (itemScriptures val)
     -- insert files
