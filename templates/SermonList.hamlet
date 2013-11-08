@@ -1,0 +1,31 @@
+<h1>Predigten
+$if null sermons
+    <p> Keine Predigten gefunden
+$else
+    <ul>    
+        <table .category .table .table-striped .table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Titel
+                    <th>
+                        Prediger
+                    <th>
+                        Stelle
+                    <th>
+                        Datum
+                    <th>
+                        Download
+             <tbody>
+                $forall Entity sermonSermonId sermon <- sermons
+                    <tr>
+                        <td> 
+                            #{sermonSermonTitle sermon}
+                        <td>
+                            Prediger
+                        <td>
+                            Stelle
+                        <td>
+                            Datum
+                        <td>
+                            Download

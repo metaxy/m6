@@ -1,0 +1,23 @@
+{
+    "itemTitle":"Test Predigt",
+    "itemAlias":"test-predigt",
+    "itemLang" : ["de"],
+    "itemFiles" : [ 
+        {"fileType":"mp3", "filePath":"./test.mp3", "fileTitle":"Test Audio"}
+    ],
+    "itemScriptures" : [
+        {"sBook":1, "sCap1":1, "sVers1":1, "sCap2":2,"sVers2":3,"sText":""}
+    ],
+    "itemCatAlias": "hellersdorf",
+    "itemGroup" : "hellersdorf-predigt",
+    "itemGroupNew" : {
+        "groupName" : "Predigt Hellersdorf",
+        "groupAlias" : "haellersdorf-predigt"
+     },
+     "itemSpeaker" : "wilhelm-walger",
+     "itemSpeakerNew" : {
+        "speakerName" : "Wilhelm Walger",
+        "speakerAlias": "wilhaelm-walger"
+     },
+     "itemPicture" : ""
+}
