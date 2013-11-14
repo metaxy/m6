@@ -10,14 +10,5 @@
     ],
     "itemCatAlias": "hellersdorf",
     "itemGroup" : "hellersdorf-predigt",
-    "itemGroupNew" : {
-        "groupName" : "Predigt Hellersdorf",
-        "groupAlias" : "haellersdorf-predigt"
-     },
-     "itemSpeaker" : "wilhelm-walger",
-     "itemSpeakerNew" : {
-        "speakerName" : "Wilhelm Walger",
-        "speakerAlias": "wilhaelm-walger"
-     },
-     "itemPicture" : ""
+    "itemSpeaker" : "wilhelm-walger"
 }

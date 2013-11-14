@@ -3,8 +3,9 @@ module Handler.SermonsList where
 import Import
 
 getSermonsListR :: Text -> Text -> Handler Html
-getSermonsListR cat alias = do
-    sermons <- runDB $ selectList [SermonSermonAlias ==. alias] []
+getSermonsListR cat grp = do
+    groupId <- runDB $ getBy404 $ UnqiueGroupAlias grp
+    sermons <- runDB $ selectList [SermonSermonGroupId ==. groupId] []
     defaultLayout $ do $(widgetFile "SermonList")
     
 postSermonsListR :: Text -> Text -> Handler Html

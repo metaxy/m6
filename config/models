@@ -67,7 +67,7 @@ SermonSermon
     language [Text]
     picture Text Maybe
     notes Html Maybe
-    sermonGroupId SermonGroupId
+    groupId SermonGroupId
     speakerId SermonSpeakerId Maybe
     deriving
     
