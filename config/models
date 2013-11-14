@@ -69,6 +69,8 @@ SermonSermon
     notes Html Maybe
     groupId SermonGroupId
     speakerId SermonSpeakerId Maybe
+    speakerName Text Maybe
+    seriesId SermonSeries Maybe
     deriving
     
 SermonFile
