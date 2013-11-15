@@ -72,6 +72,7 @@ Sermon
     speakerName Text Maybe
     seriesId SermonsSeriesId Maybe
     files [SermonsFile]
+    scriptures [SermonsScripture]
     deriving
     
 SermonsFile
@@ -98,6 +99,5 @@ SermonsScripture
     cap2 Int
     vers2 Int
     text Text Maybe
-    sermonId SermonId
  
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)

@@ -57,11 +57,11 @@ maybeToEither (Just b) Nothing = Left b
 maybeToEither (Just b) _ = Left b
 maybeToEither Nothing Nothing = Right ""
 
-cScripture :: SermonId -> InsertScripture -> SermonsScripture
-cScripture sermonId x = SermonsScripture (sBook x) (sCap1 x) (sVers1 x) (sCap2 x) (sVers2 x) (sText x) sermonId
+cScripture :: InsertScripture -> SermonsScripture
+cScripture x = SermonsScripture (sBook x) (sCap1 x) (sVers1 x) (sCap2 x) (sVers2 x) (sText x)
 
-cFile :: SermonId -> InsertFile -> SermonsFile
-cFile sermonId x = SermonsFile (fileTitle x) (fileType x) (filePath x) sermonId
+cFile :: InsertFile -> SermonsFile
+cFile x = SermonsFile (fileTitle x) (fileType x) (filePath x)
 
 getSermonsInsertR :: Handler Html
 getSermonsInsertR = error "Not yet implemented: getSermonsInsertR"
@@ -89,11 +89,8 @@ postSermonsInsertR = do
             ,sermonSpeaker = (Just speakerId)
             ,sermonSpeakerName = Nothing
             ,sermonSeriesId = Nothing
-            ,sermonFiles = (map (cFile 2) (itemFiles val))}
-    -- insert scripture references
-    _ <- mapM (runDB . insert . (cScripture sermonId)) (itemScriptures val)
-    -- insert files
-    _ <- mapM (runDB . insert . (cFile sermonId)) (itemFiles val)
+            ,sermonFiles = (map (cFile) (itemFiles val))
+            ,sermonScriptures = (map (cScripture) (itemScriptures val))}
     
     let a = itemTitle val
     return (RepPlain (toContent a))
