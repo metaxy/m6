@@ -5,5 +5,5 @@ $else
     <ul>
         $forall Entity itemId item <- items
             <li>
-                <a> #{sermonSeriesName item}
+                <a> #{sermonsSeriesName item}
 <a href=@{BackendSermonSeriesAddR}> Add new Series</a>

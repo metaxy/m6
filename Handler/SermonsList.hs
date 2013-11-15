@@ -12,7 +12,7 @@ formatSpeaker _ = do
 getSermonsListR :: Text -> Text -> Handler Html
 getSermonsListR cat grp = do
     groupId <- fmap entityKey $ runDB $ getBy404 $ UniqueGroupAlias grp
-    sermons <- runDB $ selectList [SermonSermonGroupId ==. groupId] []
+    sermons <- runDB $ selectList [SermonGroupId ==. groupId] []
     defaultLayout $ do $(widgetFile "SermonList")
 
 

@@ -2,14 +2,14 @@ module Handler.SermonsApi where
 
 import Import
 import Data.Aeson
-    
-instance ToJSON SermonGroup where
+    {--
+instance ToJSON SermonsGroup where
      toJSON (SermonGroup name alias) = object ["name" .= name, "alias" .= alias]
      
-instance ToJSON SermonSeries where
+instance ToJSON SermonsSeries where
      toJSON (SermonSeries name alias _) = object ["name" .= name, "alias" .= alias]
      
-instance ToJSON SermonSpeaker where
+instance ToJSON SermonsSpeaker where
      toJSON (SermonSpeaker name alias _ _) = object ["name" .= name, "alias" .= alias]
      
 instance ToJSON Category where
@@ -17,20 +17,22 @@ instance ToJSON Category where
      
 getSermonsApiR :: String -> Handler Value
 getSermonsApiR "listGroup" = do
-    items <- runDB $ selectList [] [Desc SermonGroupName]
+    items <- runDB $ selectList [] [Desc SermonsGroupName]
     jsonToRepJson $ Import.map toJSON items
     
 getSermonsApiR "listSpeaker" = do
-    items <- runDB $ selectList [] [Desc SermonSpeakerName]
+    items <- runDB $ selectList [] [Desc SermonsSpeakerName]
     jsonToRepJson $ Import.map toJSON items
     
 getSermonsApiR "listSeries" = do
-    items <- runDB $ selectList [] [Desc SermonSeriesName]
+    items <- runDB $ selectList [] [Desc SermonsSeriesName]
     jsonToRepJson $ Import.map toJSON items
     
 getSermonsApiR "listCat" = do
     items <- runDB $ selectList [] [Desc CategoryName]
     jsonToRepJson $ Import.map toJSON items
-    
+    --}
+   
+getSermonsApiR :: String -> Handler Value
 getSermonsApiR _ = do
     error "not implemented"

@@ -53,7 +53,7 @@ Contact
     email Text
     catId CategoryId
 
-SermonSpeaker
+SermonsSpeaker
     name Text
     alias Text
     pic Text Maybe
@@ -61,43 +61,43 @@ SermonSpeaker
     UniqueSpeakerAlias alias
     deriving
     
-SermonSermon
+Sermon
     title Text
     alias Text
     language [Text]
     picture Text Maybe
     notes Html Maybe
-    groupId SermonGroupId
-    speakerId SermonSpeakerId Maybe
+    groupId SermonsGroupId
+    speaker SermonsSpeakerId Maybe
     speakerName Text Maybe
-    seriesId SermonSeries Maybe
+    seriesId SermonsSeriesId Maybe
+    files [SermonsFile]
     deriving
     
-SermonFile
+SermonsFile
     title Text Maybe
     type Text
     path Text
-    sermonId SermonSermonId
     
-SermonGroup
+SermonsGroup
     name Text
     alias Text
     UniqueGroupAlias alias
     
-SermonSeries
+SermonsSeries
     name Text
     alias Text
     desc Html Maybe
     UniqueSeriesAlias alias
     deriving
     
-SermonScripture
+SermonsScripture
     book Int
     cap1 Int
     vers1 Int
     cap2 Int
     vers2 Int
     text Text Maybe
-    sermonId SermonSermonId
+    sermonId SermonId
  
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)

@@ -4,5 +4,5 @@ import Import
 
 getBackendSermonSpeakerListR :: Handler Html
 getBackendSermonSpeakerListR =  do  
-    list <- runDB $ selectList [] [Desc SermonSpeakerName]
+    list <- runDB $ selectList [] [Desc SermonsSpeakerName]
     backendDefaultLayout $ do $(widgetFile "BackendSermonSpeakerList")

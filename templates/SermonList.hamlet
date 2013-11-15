@@ -17,10 +17,10 @@ $else
                     <th>
                         Download
              <tbody>
-                $forall Entity sermonSermonId sermon <- sermons
+                $forall Entity sermonId sermon <- sermons
                     <tr>
                         <td> 
-                            #{sermonSermonTitle sermon}
+                            #{sermonTitle sermon}
                         <td>
                             Prediger
                         <td>

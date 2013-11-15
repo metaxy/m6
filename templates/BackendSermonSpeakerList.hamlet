@@ -5,5 +5,5 @@ $else
     <ul>
         $forall Entity itemId item <- list
             <li>
-                <a> #{sermonSpeakerName item}
+                <a> #{sermonsSpeakerName item}
 <a href=@{BackendSermonSpeakerAddR}> Add new Speaker</a>

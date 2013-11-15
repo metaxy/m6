@@ -3,8 +3,8 @@ module Handler.BackendSermonSpeakerAdd where
 import Import
 import Yesod.Form.Nic (YesodNic,nicHtmlField)
 
-entryForm :: Form SermonSpeaker
-entryForm = renderDivs $ SermonSpeaker
+entryForm :: Form SermonsSpeaker
+entryForm = renderDivs $ SermonsSpeaker
     <$> areq textField "Name" Nothing
     <*> areq textField "Alias" Nothing
     <*> aopt textField "Picture" Nothing
@@ -21,7 +21,7 @@ postBackendSermonSpeakerAddR = do
     case res of
          FormSuccess d -> do
             itemId <- runDB $ insert d
-            setMessage $ toHtml $ (sermonSpeakerName d) <> " created"
+            setMessage $ toHtml $ (sermonsSpeakerName d) <> " created"
             redirect $ BackendSermonSpeakerListR
          _ -> backendDefaultLayout $ do
                 setTitle "Please correct your entry form"

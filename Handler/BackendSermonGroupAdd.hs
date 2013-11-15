@@ -2,8 +2,8 @@ module Handler.BackendSermonGroupAdd where
 
 import Import
 
-entryForm :: Form SermonGroup
-entryForm = renderDivs $ SermonGroup
+entryForm :: Form SermonsGroup
+entryForm = renderDivs $ SermonsGroup
     <$> areq textField "Name" Nothing
     <*> areq textField "Alias" Nothing
     
@@ -18,7 +18,7 @@ postBackendSermonGroupAddR = do
     case res of
          FormSuccess d -> do
             itemId <- runDB $ insert d
-            setMessage $ toHtml $ (sermonGroupName d) <> " created"
+            setMessage $ toHtml $ (sermonsGroupName d) <> " created"
             redirect $ BackendSermonGroupListR
          _ -> backendDefaultLayout $ do
                 setTitle "Please correct your entry form"

@@ -57,11 +57,11 @@ maybeToEither (Just b) Nothing = Left b
 maybeToEither (Just b) _ = Left b
 maybeToEither Nothing Nothing = Right ""
 
-cScripture :: SermonSermonId -> InsertScripture -> SermonScripture
-cScripture sermonId x = SermonScripture (sBook x) (sCap1 x) (sVers1 x) (sCap2 x) (sVers2 x) (sText x) sermonId
+cScripture :: SermonId -> InsertScripture -> SermonsScripture
+cScripture sermonId x = SermonsScripture (sBook x) (sCap1 x) (sVers1 x) (sCap2 x) (sVers2 x) (sText x) sermonId
 
-cFile :: SermonSermonId -> InsertFile -> SermonFile
-cFile sermonId x = SermonFile (fileTitle x) (fileType x) (filePath x) sermonId
+cFile :: SermonId -> InsertFile -> SermonsFile
+cFile sermonId x = SermonsFile (fileTitle x) (fileType x) (filePath x) sermonId
 
 getSermonsInsertR :: Handler Html
 getSermonsInsertR = error "Not yet implemented: getSermonsInsertR"
@@ -71,15 +71,25 @@ postSermonsInsertR = do
     val <- parseJsonBody_
     -- get speakerid or create new one
     speakerId <- case (maybeToEither (itemSpeakerNew val) (itemSpeaker val)) of
-         Left i -> runDB $ insert (SermonSpeaker (speakerName i) (speakerAlias i) Nothing Nothing)
+         Left i -> runDB $ insert (SermonsSpeaker (speakerName i) (speakerAlias i) Nothing Nothing)
          Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueSpeakerAlias t
     -- get groupid or create new one
     groupId <- case (maybeToEither (itemGroupNew val) (itemGroup val)) of
-         Left i -> runDB $ insert (SermonGroup (groupName i) (groupAlias i))
+         Left i -> runDB $ insert (SermonsGroup (groupName i) (groupAlias i))
          Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueGroupAlias t
     -- insert sermon 
     sermonId <- runDB $ insert $
-        SermonSermon (itemTitle val) (itemAlias val) (itemLang val) Nothing Nothing groupId (Just speakerId)
+        Sermon {
+            sermonTitle = (itemTitle val) 
+            ,sermonAlias = (itemAlias val) 
+            ,sermonLanguage = (itemLang val) 
+            ,sermonPicture = Nothing 
+            ,sermonNotes = Nothing 
+            ,sermonGroupId = groupId 
+            ,sermonSpeaker = (Just speakerId)
+            ,sermonSpeakerName = Nothing
+            ,sermonSeriesId = Nothing
+            ,sermonFiles = (map (cFile 2) (itemFiles val))}
     -- insert scripture references
     _ <- mapM (runDB . insert . (cScripture sermonId)) (itemScriptures val)
     -- insert files
