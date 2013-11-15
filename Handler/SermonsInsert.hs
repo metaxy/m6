@@ -82,7 +82,7 @@ postSermonsInsertR = do
          Left i -> runDB $ insert (SermonsGroup (groupName i) (groupAlias i))
          Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueGroupAlias t
     -- insert sermon 
-    sermonId <- runDB $ insert $
+    _ <- runDB $ insert $
         Sermon {
             sermonTitle = (itemTitle val) 
             ,sermonAlias = (itemAlias val) 
@@ -98,6 +98,4 @@ postSermonsInsertR = do
             ,sermonFiles = (map (cFile) (itemFiles val))
             ,sermonScriptures = (map (cScripture) (itemScriptures val))
             }
-    
-    let a = itemTitle val
-    return (RepPlain (toContent $ show $ entityKey sermonId))
+    return (RepPlain (toContent $ itemTitle val))
