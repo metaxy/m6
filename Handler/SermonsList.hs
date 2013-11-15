@@ -1,6 +1,7 @@
 module Handler.SermonsList where
 
 import Import
+import Data.Maybe
 {--formatSpeaker :: Maybe SermonSpeakerId -> Widget
 formatSpeaker (Just x) = do
     a <- getBy $ UniqueGroupAlias "test"

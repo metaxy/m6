@@ -73,6 +73,8 @@ Sermon
     seriesId SermonsSeriesId Maybe
     files [SermonsFile]
     scriptures [SermonsScripture]
+    day Day Maybe
+    time UTCTime Maybe
     deriving
     
 SermonsFile

@@ -22,7 +22,7 @@ $else
                         <td> 
                             #{sermonTitle sermon}
                         <td>
-                            Prediger
+                            #{fromMaybe "" $ sermonSpeakerName sermon}
                         <td>
                             Stelle
                         <td>

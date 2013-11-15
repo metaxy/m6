@@ -3,8 +3,10 @@
 module Handler.SermonsInsert where
 
 import Import
-import Data.Aeson
+import Data.Aeson()
 import GHC.Generics
+import Data.Time.Clock
+import Data.Time.Calendar()
 -- curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d @test.json http://localhost:3000/api/sermons-insert
 -- curl -X POST -d @test.json http://localhost:3000/api/sermons-insert
 data InsertFile = InsertFile { 
@@ -31,17 +33,19 @@ data InsertScripture = InsertScripture {
 } deriving Generic
 
 data InsertItem = InsertItem { 
-    itemTitle :: Text, 
-    itemAlias :: Text,
-    itemLang :: [Text],
-    itemCatAlias :: Text,
-    itemScriptures :: [InsertScripture],
-    itemFiles :: [InsertFile],
-    itemGroupNew :: Maybe InsertGroup,
-    itemGroup :: Maybe Text,
-    itemSpeakerNew :: Maybe InsertSpeaker,
-    itemSpeaker :: Maybe Text,
-    itemPicture :: Maybe Text
+    itemTitle :: Text
+    ,itemAlias :: Text
+    ,itemLang :: [Text]
+    ,itemCatAlias :: Text
+    ,itemScriptures :: [InsertScripture]
+    ,itemFiles :: [InsertFile]
+    ,itemGroupNew :: Maybe InsertGroup
+    ,itemGroup :: Maybe Text
+    ,itemSpeakerNew :: Maybe InsertSpeaker
+    ,itemSpeaker :: Maybe Text
+    ,itemPicture :: Maybe Text
+    --,itemDay :: Maybe Day
+    ,itemUTCTime :: Maybe UTCTime
 } deriving Generic
 
 
@@ -89,8 +93,11 @@ postSermonsInsertR = do
             ,sermonSpeaker = (Just speakerId)
             ,sermonSpeakerName = Nothing
             ,sermonSeriesId = Nothing
+            ,sermonDay = Nothing
+            ,sermonTime = (itemUTCTime val)
             ,sermonFiles = (map (cFile) (itemFiles val))
-            ,sermonScriptures = (map (cScripture) (itemScriptures val))}
+            ,sermonScriptures = (map (cScripture) (itemScriptures val))
+            }
     
     let a = itemTitle val
-    return (RepPlain (toContent a))
+    return (RepPlain (toContent $ show $ entityKey sermonId))
