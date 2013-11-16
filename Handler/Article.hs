@@ -49,7 +49,7 @@ getArticleR catAlias alias = do
             return article
         Nothing -> do 
             notFound -- show 404
-    defaultLayout $ do
+    toolbarDefaultLayout $ do
         setTitle $ toHtml $ articleTitle $ entityVal article
         $(widgetFile "Article")
        

@@ -27,13 +27,4 @@ $doctype 5
                                 <img src=/static/images/logo.png .img-responsive alt="ECG Logo">
                         <div .col-sm-9>
                             ^{pageBody menuTop}
-            <form action=@{LangR} method=post>
-                <select name=lang>
-                    <option value=en>English
-                    <option value=de>Deutsch
-                    <option value=ru>Russisch
-                <input type=submit value=Ok> 
-             <p> 
-                <a href=@{AuthR LoginR}>
-                    Login 
             ^{pageBody pc}

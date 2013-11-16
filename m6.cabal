@@ -35,6 +35,9 @@ library
                      Handler.BackendSermonSeriesAdd
                      Handler.Lang
                      Handler.SermonsInsert
+                     Handler.SermonShow
+                     Handler.LangSet
+                     Handler.SermonSpeaker
 
 
     if flag(dev) || flag(library-only)
@@ -87,6 +90,8 @@ library
                  , fast-logger                   >= 0.3
                  , time                          >= 1.4
                  , ghc-prim
+                 , blaze-markup
+                 , blaze-html
 
 executable         m6
     if flag(library-only)

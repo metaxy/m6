@@ -55,10 +55,9 @@ Contact
 
 SermonsSpeaker
     name Text
-    alias Text
     pic Text Maybe
     bio Html Maybe
-    UniqueSpeakerAlias alias
+    UniqueSpeakerName name
     deriving
     
 Sermon
@@ -68,12 +67,11 @@ Sermon
     picture Text Maybe
     notes Html Maybe
     groupId SermonsGroupId
-    speaker SermonsSpeakerId Maybe
+    speakerId SermonsSpeakerId Maybe
     speakerName Text Maybe
     seriesId SermonsSeriesId Maybe
     files [SermonsFile]
     scriptures [SermonsScripture]
-    day Day Maybe
     time UTCTime Maybe
     deriving
     

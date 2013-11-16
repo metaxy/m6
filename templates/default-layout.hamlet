@@ -3,4 +3,7 @@
         <div .row>
             <div .col.md-12 .message>
                 <div #message>#{msg}
-^{widget}
+<div .container>
+    <div .row>
+        <div .col.md-12 .message>
+            ^{widget}

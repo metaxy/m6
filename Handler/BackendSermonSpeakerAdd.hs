@@ -6,7 +6,6 @@ import Yesod.Form.Nic (YesodNic,nicHtmlField)
 entryForm :: Form SermonsSpeaker
 entryForm = renderDivs $ SermonsSpeaker
     <$> areq textField "Name" Nothing
-    <*> areq textField "Alias" Nothing
     <*> aopt textField "Picture" Nothing
     <*> aopt nicHtmlField "Biographie" Nothing
     

@@ -59,7 +59,7 @@ html, body {
    margin-bottom: 5px;
    @include linear-bg($darkBGColor, 15%);
    > div {
-        background-image: url(/static/images/square_bg.png);
+        //background-image: url(/static/images/square_bg.png);
         border-bottom: 1px solid lighten($darkBGColor,20%);
    }
    

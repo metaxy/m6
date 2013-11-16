@@ -6,7 +6,6 @@ import Import
 import Data.Aeson()
 import GHC.Generics
 import Data.Time.Clock
-import Data.Time.Calendar()
 -- curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d @test.json http://localhost:3000/api/sermons-insert
 -- curl -X POST -d @test.json http://localhost:3000/api/sermons-insert
 data InsertFile = InsertFile { 
@@ -41,10 +40,8 @@ data InsertItem = InsertItem {
     ,itemFiles :: [InsertFile]
     ,itemGroupNew :: Maybe InsertGroup
     ,itemGroup :: Maybe Text
-    ,itemSpeakerNew :: Maybe InsertSpeaker
-    ,itemSpeaker :: Maybe Text
+    ,itemSpeaker :: Text
     ,itemPicture :: Maybe Text
-    --,itemDay :: Maybe Day
     ,itemUTCTime :: Maybe UTCTime
 } deriving Generic
 
@@ -52,7 +49,6 @@ data InsertItem = InsertItem {
 instance FromJSON InsertItem
 instance FromJSON InsertFile
 instance FromJSON InsertScripture
-instance FromJSON InsertSpeaker
 instance FromJSON InsertGroup
 
 maybeToEither :: (Maybe a) -> (Maybe Text) -> Either a Text
@@ -74,9 +70,11 @@ postSermonsInsertR :: Handler RepPlain
 postSermonsInsertR = do
     val <- parseJsonBody_
     -- get speakerid or create new one
-    speakerId <- case (maybeToEither (itemSpeakerNew val) (itemSpeaker val)) of
-         Left i -> runDB $ insert (SermonsSpeaker (speakerName i) (speakerAlias i) Nothing Nothing)
-         Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueSpeakerAlias t
+    speaker <- runDB $ getBy $ UniqueSpeakerName (itemSpeaker val)
+    speakerId <- case speaker of
+        Just sp -> return $ entityKey sp
+        Nothing -> runDB $ insert (SermonsSpeaker (itemSpeaker val) Nothing Nothing)
+        
     -- get groupid or create new one
     groupId <- case (maybeToEither (itemGroupNew val) (itemGroup val)) of
          Left i -> runDB $ insert (SermonsGroup (groupName i) (groupAlias i))
@@ -90,10 +88,9 @@ postSermonsInsertR = do
             ,sermonPicture = Nothing 
             ,sermonNotes = Nothing 
             ,sermonGroupId = groupId 
-            ,sermonSpeaker = (Just speakerId)
-            ,sermonSpeakerName = Nothing
+            ,sermonSpeakerId = (Just speakerId)
+            ,sermonSpeakerName = Just (itemSpeaker val)
             ,sermonSeriesId = Nothing
-            ,sermonDay = Nothing
             ,sermonTime = (itemUTCTime val)
             ,sermonFiles = (map (cFile) (itemFiles val))
             ,sermonScriptures = (map (cScripture) (itemScriptures val))

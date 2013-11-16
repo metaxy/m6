@@ -13,8 +13,5 @@
         "groupName" :"Hellersdorf Predigt"
         ,"groupAlias" : "hellersdorf-predigt"
     }
-    ,"itemSpeakerNew" : {
-        "speakerAlias": "wilhelm-walger"
-        ,"speakerName" : "Wilhelm Walger"
-    }
+    ,"speakerName" : "Wilhelm Walger"
 }

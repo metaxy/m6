@@ -2,18 +2,39 @@ module Handler.SermonsList where
 
 import Import
 import Data.Maybe
-{--formatSpeaker :: Maybe SermonSpeakerId -> Widget
-formatSpeaker (Just x) = do
-    a <- getBy $ UniqueGroupAlias "test"
-    toWidget $ [hamlet| <a> |]
+import qualified Data.Text as T
+import qualified Data.ByteString.Lazy.Char8 as L
+import Text.Blaze.Html5
+import Text.Blaze.Html5.Attributes
+import Text.Blaze.Html
+import Text.Blaze
+import Data.Time.Clock
 
-formatSpeaker _ = do
-    toWidget $ [hamlet| <a> |]
-    --}    
+formatScripture' :: SermonsScripture -> Html
+formatScripture' (SermonsScripture book c1 v1 c2 v2 Nothing) = 
+    a $ toHtml $ (show book) ++ " " ++(show c1) ++ ":" ++(show v1)
+formatScripture' (SermonsScripture book c1 v1 c2 v2 (Just text))
+    | T.null text = formatScripture' (SermonsScripture book c1 v1 c2 v2 Nothing)
+    | otherwise = a $ toHtml text
+    
+formatScripture :: [SermonsScripture] -> Html
+formatScripture x = mapM_ formatScripture' x
+
+formatTime :: Maybe UTCTime -> Html
+formatTime Nothing = toHtml (show "-")
+formatTime (Just x) = toHtml $ show $ utctDay x
+
+downloadLinks :: [SermonsFile] -> Html
+downloadLinks = mapM_ downloadLinks'
+
+downloadLinks' :: SermonsFile -> Html
+--downloadLinks' (SermonsFile _ "audio" path) = a ! href path $ i class_ "icon-download"
+downloadLinks' (SermonsFile _ _ path) = a ! href path $ toHtml path
+
 getSermonsListR :: Text -> Text -> Handler Html
-getSermonsListR cat grp = do
-    groupId <- fmap entityKey $ runDB $ getBy404 $ UniqueGroupAlias grp
-    sermons <- runDB $ selectList [SermonGroupId ==. groupId] []
+getSermonsListR cat groupAlias = do
+    grp <- runDB $ getBy404 $ UniqueGroupAlias groupAlias
+    sermons <- runDB $ selectList [SermonGroupId ==. entityKey grp] []
     defaultLayout $ do $(widgetFile "SermonList")
 
 

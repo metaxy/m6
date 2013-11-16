@@ -14,3 +14,8 @@
                 <a href=@{ArticleR "wartenberg" "start"}>Wartenberg
             <li .item-spandau>
                 <a href=@{ArticleR "spandau" "start"}>Spandau
+        <div .btn-grp .language-switch>
+            <a .btn .btn-grey href=@{LangSetR "de"}>
+                <span .flag .flag-de>
+            <a .btn .btn-grey href=@{LangSetR "ru"}>
+                <span .flag .flag-ru>

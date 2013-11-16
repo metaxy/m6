@@ -151,6 +151,7 @@ getExtra = fmap (appExtra . settings) getYesod
 --
 -- https://github.com/yesodweb/yesod/wiki/Sending-email
 
+backendDefaultLayout :: WidgetT App IO () -> HandlerT App IO Html
 backendDefaultLayout widget = do
         master <- getYesod
         mmsg <- getMessage
@@ -163,3 +164,17 @@ backendDefaultLayout widget = do
                 ])
             $(widgetFile "default-layout")
         giveUrlRenderer $(hamletFile "templates/backend-default-layout-wrapper.hamlet")
+
+toolbarDefaultLayout :: WidgetT App IO () -> HandlerT App IO Html
+toolbarDefaultLayout widget = do
+        master <- getYesod
+        mmsg <- getMessage
+        menuTop <- widgetToPageContent $ do 
+            $(widgetFile "menu-top")
+
+        pc <- widgetToPageContent $ do
+            $(combineStylesheets 'StaticR
+                [ stylesheets_styles_css
+                ])
+            $(widgetFile "default-layout-toolbar")
+        giveUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")

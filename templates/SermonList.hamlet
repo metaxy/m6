@@ -1,4 +1,4 @@
-<h1>Predigten
+<h1>#{sermonsGroupName $ entityVal grp}
 $if null sermons
     <p> Keine Predigten gefunden
 $else
@@ -20,12 +20,17 @@ $else
                 $forall Entity sermonId sermon <- sermons
                     <tr>
                         <td> 
-                            #{sermonTitle sermon}
+                            <a href=@{SermonShowR sermonId}>
+                                #{sermonTitle sermon}
                         <td>
-                            #{fromMaybe "" $ sermonSpeakerName sermon}
+                            $maybe speaker <- (sermonSpeakerId sermon)
+                                <a href=@{SermonSpeakerR speaker}>
+                                    #{fromMaybe "" $ sermonSpeakerName sermon}
+                                
+                    
                         <td>
-                            Stelle
+                            #{formatScripture $ sermonScriptures sermon}
                         <td>
-                            Datum
+                            #{formatTime $ sermonTime sermon}
                         <td>
                             Download

@@ -18,8 +18,12 @@
 /article/#Text/#Text ArticleR GET
 
 /sermons/#Text/#Text SermonsListR GET POST
+/sermon/show/#SermonId SermonShowR GET
+
 /api/sermons/#String SermonsApiR GET
 /api/sermons-insert SermonsInsertR GET POST
 
 /lang LangR POST
 
+/lang/#Text LangSetR GET
+/sermon/speaker/#SermonsSpeakerId SermonSpeakerR GET
