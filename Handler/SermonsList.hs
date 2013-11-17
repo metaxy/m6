@@ -7,7 +7,7 @@ import qualified Data.ByteString.Lazy.Char8 as L
 import Text.Blaze.Html5
 import Text.Blaze.Html5.Attributes
 import Text.Blaze.Html
-import Text.Blaze
+import Text.Blaze.Internal
 import Data.Time.Clock
 
 formatScripture' :: SermonsScripture -> Html
@@ -28,8 +28,11 @@ downloadLinks :: [SermonsFile] -> Html
 downloadLinks = mapM_ downloadLinks'
 
 downloadLinks' :: SermonsFile -> Html
---downloadLinks' (SermonsFile _ "audio" path) = a ! href path $ i class_ "icon-download"
-downloadLinks' (SermonsFile _ _ path) = a ! href path $ toHtml path
+downloadLinks' (SermonsFile _ "audio" path) = a ! href (textValue path) $ i ! class_ "fa-headphones" $ ""
+downloadLinks' (SermonsFile _ "video" path) = a ! href (textValue path) $ i ! class_ "fs-film" $ ""
+downloadLinks' (SermonsFile _ "text" path) = a ! href (textValue path)  $ i ! class_ "fa-pencil-square-o" $ ""
+downloadLinks' (SermonsFile _ _ path) = a ! href (textValue path)  $ i ! class_  "fa-download" $ ""
+
 
 getSermonsListR :: Text -> Text -> Handler Html
 getSermonsListR cat groupAlias = do
