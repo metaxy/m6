@@ -1,0 +1,6 @@
+<div .container>
+    $maybe msg <- mmsg
+        <div .row>
+            <div .col.md-12 .message>
+                <div #message>#{msg}
+^{widget}
