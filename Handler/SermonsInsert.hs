@@ -9,30 +9,30 @@ import Data.Time.Clock
 -- curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d @test.json http://localhost:3000/api/sermons-insert
 -- curl -X POST -d @test.json http://localhost:3000/api/sermons-insert
 data InsertFile = InsertFile { 
-    fileTitle :: Maybe Text, 
-    fileType :: Text,
-    filePath :: Text
+     fileTitle :: Maybe Text
+    ,fileType :: Text
+    ,filePath :: Text
 } deriving Generic
 data InsertSpeaker = InsertSpeaker { 
-    speakerName :: Text, 
-    speakerAlias :: Text
+     speakerName :: Text
+    ,speakerAlias :: Text
 } deriving Generic
 data InsertGroup = InsertGroup { 
-    groupName :: Text, 
-    groupAlias :: Text
+     groupName :: Text
+    ,groupAlias :: Text
 } deriving Generic
 
 data InsertScripture = InsertScripture { 
-    sBook :: Int, 
-    sCap1 :: Int,
-    sVers1 :: Int,
-    sCap2 :: Int,
-    sVers2 :: Int,
-    sText :: Maybe Text
+     sBook :: Int 
+    ,sCap1 :: Int
+    ,sVers1 :: Int
+    ,sCap2 :: Int
+    ,sVers2 :: Int
+    ,sText :: Maybe Text
 } deriving Generic
 
 data InsertItem = InsertItem { 
-    itemTitle :: Text
+     itemTitle :: Text
     ,itemAlias :: Text
     ,itemLang :: [Text]
     ,itemCatAlias :: Text

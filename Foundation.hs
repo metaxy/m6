@@ -55,7 +55,6 @@ type Form x = Html -> MForm (HandlerT App IO) (FormResult x, Widget)
 -- of settings which can be configured by overriding methods here.
 instance Yesod App where
     approot = ApprootMaster $ appRoot . settings
-
     -- Store session data on the client in encrypted cookies,
     -- default session idle timeout is 120 minutes
     makeSessionBackend _ = fmap Just $ defaultClientSessionBackend
@@ -101,12 +100,14 @@ instance Yesod App where
     -- Place Javascript at bottom of the body tag so the rest of the page loads first
     jsLoader _ = BottomOfBody
 
+ --   jsLoader _ = BottomOfHeadBlocking
     -- What messages should be logged. The following includes all messages when
     -- in development, and warnings and errors in production.
     shouldLog _ _source level =
         development || level == LevelWarn || level == LevelError
 
     makeLogger = return . appLogger
+    
 
 -- How to run database actions.
 instance YesodPersist App where
