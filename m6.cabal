@@ -39,6 +39,7 @@ library
                      Handler.LangSet
                      Handler.SermonSpeaker
                      Model.SermonsTable
+                     Model.Sermons
 
 
     if flag(dev) || flag(library-only)

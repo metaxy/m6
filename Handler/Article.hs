@@ -8,10 +8,10 @@ textModule title text icon  = do
 
 dispatchModules :: Text -> Text -> Maybe Widget
 dispatchModules "hellersdorf" "start" = do
-    let module1 = textModule "Anfahrt" "Hallo" "icon-calendar"
-    let module2 = textModule "Anfahrt" "Hallo" "icon-calendar"
-    let module3 = textModule "Anfahrt" "Hallo" "icon-calendar"
-    let module4 = textModule "Anfahrt" "Hallo" "icon-calendar"
+    let module1 = textModule "Anfahrt" "Hallo" "fa fa-calendar"
+    let module2 = textModule "Anfahrt" "Hallo" "fa fa-calendar"
+    let module3 = textModule "Anfahrt" "Hallo" "fa fa-calendar"
+    let module4 = textModule "Anfahrt" "Hallo" "fa fa-calendar"
     Just (toWidget $(widgetFile "toolbar"))
 
 dispatchModules _ _ = Nothing

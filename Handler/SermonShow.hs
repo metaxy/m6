@@ -3,6 +3,7 @@ module Handler.SermonShow where
 import Import
 import Data.Maybe
 import Data.List
+import Model.Sermons
 
 getFile' :: Text -> [SermonsFile] -> Maybe SermonsFile
 getFile' typ = listToMaybe . filter(\x -> (sermonsFileType x) == typ)
@@ -10,7 +11,10 @@ getFile' typ = listToMaybe . filter(\x -> (sermonsFileType x) == typ)
 videoPlayer :: SermonsFile -> Widget
 videoPlayer file = do
     addScript $ StaticR jwplayer6_jwplayer_js
-    toWidget [hamlet|<div #video-player>|]
+    toWidget [hamlet|
+    <div .row>
+        <div .col-lg-6 .col-centered>
+            <div #video-player>|]
     toWidget [julius|
         jwplayer('video-player').setup({
             primary: 'html5',
@@ -24,7 +28,10 @@ videoPlayer file = do
 audioPlayer :: SermonsFile -> Widget
 audioPlayer file = do
     addScript $ StaticR jwplayer6_jwplayer_js
-    toWidget [hamlet|<div #audio-player>|]
+    toWidget [hamlet|
+    <div .row>
+        <div .col-lg-6 .col-centered>
+            <div #audio-player>|]
     toWidget [julius|
         jwplayer('audio-player').setup(
                 {
@@ -43,6 +50,11 @@ getSermonShowR sermonId = do
     let videoFile = getFile' "video" files
     let audioFile = getFile' "audio" files
     
+    -- todo: make cleaner
+    series <- case (sermonSeriesId sermon) of
+         Nothing -> return Nothing
+         (Just s) -> runDB $ get $ s
+         
     defaultLayout $ do 
         setTitle $ toHtml $ sermonTitle sermon
         toWidget [hamlet|<h1> #{sermonTitle sermon}|]

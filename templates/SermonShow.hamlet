@@ -1,26 +1,36 @@
 <div .row >
     <div .offset6 .col-sm-6>
         <div>
-            <i class="icon-user">
+            <i .fa .fa-user>
             <b>Prediger:
             $maybe speaker <- (sermonSpeakerId sermon)
                 <a href=@{SermonSpeakerR speaker}>
                     #{fromMaybe "" $ sermonSpeakerName sermon}
         <div>
-            <i class="icon-calendar">
-            <b>Datum:
-            Sonntag, 17. November 2013           
+            <i .fa .fa-calendar>
+            <b>Datum: 
+            #{formatTime $ sermonTime sermon}
         <div>
-            <i class="icon-book">
+            <i .fa .fa-book>
             <b>Stelle:
-            Kolosser 1,23
-        <div>
-            <i class="icon-list">
-            <b>Serie:
-            <a>        
+            #{formatScripture $ sermonScriptures sermon}
+            
+        $maybe s <- series
+            <div>
+                <i .fa .fa-list>
+                <b>Serie:
+                <a>
+                    #{sermonsSeriesName s}
     <div .col-sm-6>
-        <div>
-            <i class="icon-headphones">
-            <a>
-                Audio herunterladen                  
+        $maybe f <- audioFile
+            <div>
+                <i .fa .fa-headphones>
+                <a href=#{sermonsFilePath f}>
+                    Audio herunterladen   
+                    
+        $maybe f2 <- videoFile
+            <div>
+                <i .fa .fa-film>
+                <a href=#{sermonsFilePath f2}>
+                    Video herunterladen                  
                 
