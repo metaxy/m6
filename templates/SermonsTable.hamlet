@@ -1,35 +1,34 @@
 $if null sermons
     <p> Keine Predigten gefunden
 $else
-    <ul>    
-        <table .category .table .table-striped .table-hover">
-            <thead>
+    <table .category .table .table-striped .table-hover>
+        <thead>
+            <tr>
+                <th>
+                    Titel
+                <th>
+                    Prediger
+                <th>
+                    Stelle
+                <th>
+                    Datum
+                <th>
+                    Download
+        <tbody>
+            $forall Entity sermonId sermon <- sermons
                 <tr>
-                    <th>
-                        Titel
-                    <th>
-                        Prediger
-                    <th>
-                        Stelle
-                    <th>
-                        Datum
-                    <th>
-                        Download
-             <tbody>
-                $forall Entity sermonId sermon <- sermons
-                    <tr>
-                        <td> 
-                            <a href=@{SermonShowR sermonId}>
-                                #{sermonTitle sermon}
-                        <td>
-                            $maybe speaker <- (sermonSpeakerId sermon)
-                                <a href=@{SermonSpeakerR speaker}>
-                                    #{fromMaybe "" $ sermonSpeakerName sermon}
-                                
-                    
-                        <td>
-                            #{formatScripture $ sermonScriptures sermon}
-                        <td>
-                            #{formatTime $ sermonTime sermon}
-                        <td>
-                            #{downloadLinks $ sermonFiles sermon}
+                    <td> 
+                        <a href=@{SermonShowR sermonId}>
+                            #{sermonTitle sermon}
+                    <td>
+                        $maybe speaker <- (sermonSpeakerId sermon)
+                            <a href=@{SermonSpeakerR speaker}>
+                                #{fromMaybe "" $ sermonSpeakerName sermon}
+                            
+                
+                    <td>
+                        #{formatScripture $ sermonScriptures sermon}
+                    <td>
+                        #{formatTime $ sermonTime sermon}
+                    <td>
+                        #{downloadLinks $ sermonFiles sermon}

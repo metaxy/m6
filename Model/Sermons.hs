@@ -34,3 +34,7 @@ downloadLinks' (SermonsFile _ "video" path) = a ! href (textValue path) $ i ! cl
 downloadLinks' (SermonsFile _ "text" path) = a ! href (textValue path)  $ i ! class_ "fa fa-download" $ ""
 downloadLinks' (SermonsFile _ _ path) = a ! href (textValue path)  $ i ! class_  "fa fa-download" $ ""
 
+updateGetParam :: [(Text,Text)] -> (Text,Text) -> Text
+updateGetParam getParams (p, n) = (T.cons '?') . T.intercalate "&"
+                                  . Import.map (\(k,v) -> k `T.append` "=" `T.append` v)
+                                  . (++ [(p, n)]) . Import.filter ((/= p) . Import.fst) $ getParams

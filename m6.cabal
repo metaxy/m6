@@ -94,6 +94,7 @@ library
                  , ghc-prim
                  , blaze-markup
                  , blaze-html
+                 , yesod-paginator               >= 0.9
 
 executable         m6
     if flag(library-only)

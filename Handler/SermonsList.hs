@@ -1,14 +1,17 @@
 module Handler.SermonsList where
-import Model.SermonsTable
 
 import Import
-import qualified Data.Text as T
+import Yesod.Paginator
+import Model.SermonsTable
 
 getSermonsListR :: Text -> Text -> Handler Html
 getSermonsListR cat groupAlias = do
     grp <- runDB $ getBy404 $ UniqueGroupAlias groupAlias
-    sermons' <- runDB $ selectList [SermonGroupId ==. entityKey grp] []
+    
+    (sermons',widget) <- runDB $ selectPaginated 5 [SermonGroupId ==. entityKey grp] []
     table <- widgetToPageContent $ sermonsTable sermons'
+    speakers <- runDB $ selectList [] [Asc SermonsSpeakerName]
+    
     defaultLayout $ 
         do $(widgetFile "SermonList")
 

@@ -50,10 +50,12 @@ getSermonShowR sermonId = do
     let videoFile = getFile' "video" files
     let audioFile = getFile' "audio" files
     
+
     -- todo: make cleaner
+    
     series <- case (sermonSeriesId sermon) of
          Nothing -> return Nothing
-         (Just s) -> runDB $ get $ s
+         Just s -> runDB $ get s
          
     defaultLayout $ do 
         setTitle $ toHtml $ sermonTitle sermon

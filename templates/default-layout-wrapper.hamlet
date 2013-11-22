@@ -14,6 +14,8 @@ $doctype 5
 
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="//code.jquery.com/jquery.js">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js">
         ^{pageHead pc}
 
 
