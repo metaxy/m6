@@ -33,14 +33,14 @@
 // Components: common
 @import "component-animations";
 //@import "glyphicons";
-//@import "dropdowns";
+@import "dropdowns";
 @import "button-groups";
 @import "input-groups";
 @import "navs";
 @import "navbar";
-@import "breadcrumbs";
+//@import "breadcrumbs";
 @import "pagination";
-//@import "pager";
+@import "pager";
 @import "labels";
 @import "badges";
 @import "jumbotron";
@@ -49,7 +49,7 @@
 @import "media";
 @import "list-group";
 @import "panels";
-//@import "wells";
+@import "wells";
 @import "close";
 
 // Components w/ javascript

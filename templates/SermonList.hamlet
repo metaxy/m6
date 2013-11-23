@@ -19,21 +19,24 @@
             <div .tab-content>
                 <div .tab-pane .active #title>
                      <div .form-group>
-                        <input type="email" class="form-control" id="filter_by_title" placeholder="Titel eingeben">
+                        <input type="text" class="form-control" name="filter_by_title" placeholder="Titel eingeben">
                 <div .tab-pane #speaker>
                         <div .form-group>
                             <select class="form-control" name="filter_by_speaker">
+                                <option value="" selected="selected">Nicht Ausgewählt
                                 $forall Entity speakerId speaker <- speakers
                                     <option>#{sermonsSpeakerName speaker}
                 <div .tab-pane #ref>
                     Suche nach Stelle
                 <div .tab-pane #date>
-                    <div class="input-append date">
-                        <input type="text" class="span2">
-                            <span class="add-on">
-                                <i class="icon-th">
-                   
-                 
+                   <div class="form-group row"> 
+                        <div class="col-xs-8"> 
+                            <div class="input-group date" id="dp3"  data-date-format="dd.mm.yyyy"> 
+                                <input class="form-control" type="text" readonly="" value="" name="filter_by_date"> 
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar">
+                     
+
             <button type="submit" class="btn btn-primary">
                 Filter
                     

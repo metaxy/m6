@@ -13,10 +13,10 @@ getSermonsListR cat groupAlias = do
     speakers <- runDB $ selectList [] [Asc SermonsSpeakerName]
     
     defaultLayout $ do
-        addScript $ StaticR javascripts_bootstrap-datepicker_js
-        addStyleSheet $ StaticR stylesheets_datepicker_css
+        addScript $ StaticR javascripts_bootstrap_datepicker_js
+        addStylesheet $ StaticR stylesheets_datepicker_css
         toWidget [julius|
-            $('.input-append.date').datepicker({
+            $('.input-group.date').datepicker({
                 language: "de",
                 forceParse: false,
                 calendarWeeks: true,
