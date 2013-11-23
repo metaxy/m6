@@ -12,8 +12,19 @@ getSermonsListR cat groupAlias = do
     table <- widgetToPageContent $ sermonsTable sermons'
     speakers <- runDB $ selectList [] [Asc SermonsSpeakerName]
     
-    defaultLayout $ 
-        do $(widgetFile "SermonList")
+    defaultLayout $ do
+        addScript $ StaticR javascripts_bootstrap-datepicker_js
+        addStyleSheet $ StaticR stylesheets_datepicker_css
+        toWidget [julius|
+            $('.input-append.date').datepicker({
+                language: "de",
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                todayHighlight: true
+            });
+          |]
+        $(widgetFile "SermonList")
 
 
 postSermonsListR :: Text -> Text -> Handler Html

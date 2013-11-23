@@ -15,22 +15,27 @@
                 <a href="#ref" data-toggle="tab">Stelle
             <li>
                 <a href="#date" data-toggle="tab">Datum  
-                
-        <div .tab-content>
-            <div .tab-pane .active #title>
-                Suche nach Titel
-            <div .tab-pane #speaker>
-                <form .form-inline role="form">
-                    <div .form-group>
-                        <select class="form-control" name="filter_by_speaker">
-                            $forall Entity speakerId speaker <- speakers
-                                <option>#{sermonsSpeakerName speaker}</option>
-                    <button type="submit" class="btn btn-default">Filter</button>
-
-            <div .tab-pane #ref>
-                Suche nach Stelle
-            <div .tab-pane #date>
-                Suche nach Datum
+        <form .form-inline role="form">
+            <div .tab-content>
+                <div .tab-pane .active #title>
+                     <div .form-group>
+                        <input type="email" class="form-control" id="filter_by_title" placeholder="Titel eingeben">
+                <div .tab-pane #speaker>
+                        <div .form-group>
+                            <select class="form-control" name="filter_by_speaker">
+                                $forall Entity speakerId speaker <- speakers
+                                    <option>#{sermonsSpeakerName speaker}
+                <div .tab-pane #ref>
+                    Suche nach Stelle
+                <div .tab-pane #date>
+                    <div class="input-append date">
+                        <input type="text" class="span2">
+                            <span class="add-on">
+                                <i class="icon-th">
+                   
+                 
+            <button type="submit" class="btn btn-primary">
+                Filter
                     
 ^{pageBody table}
 
