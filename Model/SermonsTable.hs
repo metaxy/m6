@@ -14,7 +14,7 @@ sermonsTable sermons' = do
     --filter by language
     lang' <- languages
     let sermons = Import.filter (\x -> anyElem lang' (sermonLanguage $ entityVal x)) sermons'
-    
+
     toWidget $(widgetFile "SermonsTable")
 
 
