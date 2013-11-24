@@ -15,5 +15,5 @@ Staging:
   <<: *defaults
 
 Production:
-  approot: "/"
+  approot: "http://ec2-54-201-113-66.us-west-2.compute.amazonaws.com:3000"
   <<: *defaults
