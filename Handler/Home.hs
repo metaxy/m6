@@ -11,4 +11,7 @@ import Import
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler Html
-getHomeR = getArticleR "home" "home"
+getHomeR =   
+    defaultLayout $ do
+        setTitle $ "Test"
+       

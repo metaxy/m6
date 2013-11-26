@@ -51,6 +51,7 @@ mkYesodData "App" $(parseRoutesFile "config/routes")
 
 type Form x = Html -> MForm (HandlerT App IO) (FormResult x, Widget)
 
+
 -- Please see the documentation for the Yesod typeclass. There are a number
 -- of settings which can be configured by overriding methods here.
 instance Yesod App where
@@ -71,7 +72,12 @@ instance Yesod App where
             $(combineStylesheets 'StaticR
                 [ stylesheets_styles_css
                 ])
+            $(combineScripts 'StaticR
+                [ javascripts_jquery_1_10_2_min_js,
+                  javascripts_bootstrap_min_js
+                ])
             $(widgetFile "default-layout")
+            
         giveUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 
         
@@ -158,10 +164,15 @@ backendDefaultLayout widget = do
         mmsg <- getMessage
         menuTop <- widgetToPageContent $ do 
             $(widgetFile "backend-menu-top")
-
+        
         pc <- widgetToPageContent $ do
             $(combineStylesheets 'StaticR
                 [ stylesheets_styles_css
+                ])
+            $(combineScripts 'StaticR
+                [javascripts_jquery_1_10_2_min_js, 
+                 javascripts_bootstrap_min_js
+                  
                 ])
             $(widgetFile "default-layout")
         giveUrlRenderer $(hamletFile "templates/backend-default-layout-wrapper.hamlet")
@@ -170,12 +181,17 @@ toolbarDefaultLayout :: WidgetT App IO () -> HandlerT App IO Html
 toolbarDefaultLayout widget = do
         master <- getYesod
         mmsg <- getMessage
+     
         menuTop <- widgetToPageContent $ do 
-            $(widgetFile "menu-top")
-
+            $(widgetFile "backend-menu-top")
+        
         pc <- widgetToPageContent $ do
             $(combineStylesheets 'StaticR
                 [ stylesheets_styles_css
                 ])
-            $(widgetFile "default-layout-toolbar")
+            $(combineScripts 'StaticR
+                [javascripts_jquery_1_10_2_min_js,
+                 javascripts_bootstrap_min_js
+                ])
+            $(widgetFile "default-layout")
         giveUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
