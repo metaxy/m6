@@ -7,11 +7,11 @@ import Data.Text (Text)
 import Database.Persist.Quasi
 import Data.Typeable (Typeable)
 import Data.Time
-import Data.Aeson()
+import Data.Aeson
 import GHC.Generics
-import Control.Monad
---import Data.ByteString.Lazy
-import Data.ByteString (ByteString)
+import qualified Data.ByteString.Lazy as LBS
+import Data.ByteString
+import Data.Maybe
 -- You can define all of your database entities in the entities file.
 -- You can find more information on persistent and how to declare entities
 -- at:
@@ -31,6 +31,8 @@ data SermonsFile = SermonsFile {
     ,sermonsFileType :: Text
 } deriving (Generic, Eq, Show)
 
+decodeList :: FromJSON a => [ByteString] -> [a]
+decodeList x = catMaybes $ Prelude.map(decode . LBS.fromStrict) x 
 
 instance FromJSON SermonsScripture 
 instance ToJSON SermonsScripture 

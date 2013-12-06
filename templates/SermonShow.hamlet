@@ -9,11 +9,12 @@
         <div>
             <i .fa .fa-calendar>
             <b>Datum: 
-            #{formatTime $ sermonTime sermon}
+            #{formatDate $ sermonDate sermon}
         <div>
             <i .fa .fa-book>
             <b>Stelle:
-            
+                #{formatScripture $ sermonScriptures sermon}
+
         $maybe s <- series
             <div>
                 <i .fa .fa-list>
@@ -33,3 +34,4 @@
                 <a href=#{sermonsFilePath f2}>
                     Video herunterladen                  
                 
+            #{downloadLinks $ sermonFiles sermon}

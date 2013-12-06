@@ -33,7 +33,7 @@ data InsertItem = InsertItem {
     ,itemGroup :: Maybe Text
     ,itemSpeaker :: Text
     ,itemPicture :: Maybe Text
-    ,itemTime :: Maybe Text
+    ,itemDate :: Maybe Text
 } deriving Generic
 
 
@@ -86,8 +86,8 @@ postSermonsInsertR = do
             ,sermonSpeakerId = Just speakerId
             ,sermonSpeakerName = Just $ itemSpeaker val
             ,sermonSeriesId = Nothing
-            ,sermonTime = itemTime val
+            ,sermonDate = itemDate val
             ,sermonFiles = map (B.toStrict . encode) $ itemFiles val
-            ,sermonScriptures = lazyToStrictBS $ encode $ itemScriptures val
+            ,sermonScriptures = map (B.toStrict . encode) $ itemScriptures val
             }
     return (RepPlain (toContent $ itemTitle val))

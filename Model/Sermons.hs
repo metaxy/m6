@@ -7,16 +7,19 @@ import Text.Blaze.Html5.Attributes
 import Text.Blaze.Html()
 import Text.Blaze.Internal
 import qualified Data.ByteString      as BS
-import qualified Data.ByteString.Lazy as LBS
 import Data.Aeson
 import Data.Maybe
+import Data.Time.Format
 
 --import Data.Time.Clock
 --import Data.Time.Calendar
-
-lazyToStrictBS :: LBS.ByteString -> BS.ByteString
-lazyToStrictBS x = BS.concat $ LBS.toChunks x
-
+--fromDisplayDate :: Text -> Maybe Text
+--fromDisplayDate x :: parseTime defaultTimeLocale "  " x
+        
+--from interal to display
+--2013-05-12 -> 12.05.2013
+--toDisplayDate :: Text -> Text
+--toDisplayDate x = day ++ "." ++ month ++ "." ++ year
 formatScripture' :: SermonsScripture -> Html
 formatScripture' (SermonsScripture book c1 v1 c2 v2 Nothing) = 
     toHtml $ (show book) ++ " " ++(show c1) ++ ":" ++(show v1)
@@ -25,17 +28,17 @@ formatScripture' (SermonsScripture book c1 v1 c2 v2 (Just t))
     | otherwise = toHtml t
  
 formatScripture :: [BS.ByteString] -> Html
-formatScripture x = mapM_ formatScripture' $ catMaybes $ Import.map(decode . LBS.fromStrict) x 
+formatScripture x = mapM_ formatScripture' $ decodeList x 
 
-formatTime :: Maybe Text -> Html
-formatTime Nothing = toHtml $ show ""
-formatTime (Just t) = toHtml $ t
+formatDate :: Maybe Text -> Html
+formatDate Nothing = toHtml $ show ""
+formatDate (Just t) = toHtml $ t
 --formatTime (Just x) = toHtml $ f $ toGregorian $ utctDay x
   --  where
 --        f (a,b,c) = (show c) ++ "." ++ show(b) ++ "." ++ (show a)
        
-downloadLinks :: [SermonsFile] -> Html
-downloadLinks = mapM_ downloadLinks'
+downloadLinks :: [BS.ByteString] -> Html
+downloadLinks x = mapM_ downloadLinks' $ decodeList x
 
 downloadLinks' :: SermonsFile -> Html
 downloadLinks' (SermonsFile _ "audio" path) = a ! href (textValue path) $ i ! class_ "fa fa-headphones" $ ""

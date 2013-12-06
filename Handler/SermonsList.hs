@@ -5,21 +5,28 @@ import Yesod.Paginator
 import Model.SermonsTable
 import qualified Data.Text as T
 
-filterBySpeaker' :: Maybe Text -> [Filter Sermon]
-filterBySpeaker' Nothing = []
-filterBySpeaker' (Just s) 
+filterBySpeaker :: Maybe Text -> [Filter Sermon]
+filterBySpeaker Nothing = []
+filterBySpeaker (Just s) 
     | T.null s = []
     | otherwise = [SermonSpeakerName ==. (Just s)]
 
+filterByDate :: Maybe Text -> [Filter Sermon]
+filterByDate Nothing = []
+filterByDate (Just s) 
+    | T.null s = []
+    | otherwise = [SermonDate ==. (Just s)]
+    
 getSermonsListR :: Text -> Text -> Handler Html
 getSermonsListR cat groupAlias = do
     
     fS <- lookupGetParam "filter_by_speaker"
-
+    fD <- lookupGetParam "filter_by_date"
+    
     grp <- runDB $ getBy404 $ UniqueGroupAlias groupAlias
     let filters =  [SermonGroupId ==. entityKey grp] 
-                    ++ (filterBySpeaker' fS)
-    (sermons',widget) <- runDB $ selectPaginated 25 filters []
+                    ++ (filterBySpeaker fS)  ++ (filterByDate fD)
+    (sermons',widget) <- runDB $ selectPaginated 25 filters [Asc SermonDate]
     
     table <- widgetToPageContent $ sermonsTable sermons'
     speakers <- runDB $ selectList [] [Asc SermonsSpeakerName]
