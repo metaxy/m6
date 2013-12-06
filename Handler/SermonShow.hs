@@ -5,6 +5,7 @@ import Data.Maybe
 import Data.List
 import Model.Sermons
 import Data.Aeson
+import qualified Data.ByteString.Lazy as B
 
 getFile' :: Text -> [SermonsFile] -> Maybe SermonsFile
 getFile' typ = listToMaybe . filter(\x -> (sermonsFileType x) == typ)
@@ -47,11 +48,10 @@ audioPlayer file = do
 getSermonShowR :: SermonId -> Handler Html
 getSermonShowR sermonId = do
     sermon <- runDB $ get404 sermonId
-    let files = sermonFiles sermon
+    let files = decode $ B.fromStrict $ sermonFiles sermon
     let videoFile = getFile' "video" files
     let audioFile = getFile' "audio" files
     
-
     -- todo: make cleaner
     
     series <- case (sermonSeriesId sermon) of

@@ -13,7 +13,6 @@
         <div>
             <i .fa .fa-book>
             <b>Stelle:
-            #{formatScripture $ decode $ sermonScriptures sermon}
             
         $maybe s <- series
             <div>
