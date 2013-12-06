@@ -10,16 +10,22 @@ import qualified Data.ByteString      as BS
 import Data.Aeson
 import Data.Maybe
 import Data.Time.Format
-
+import Data.Time
+import System.Locale
 --import Data.Time.Clock
 --import Data.Time.Calendar
---fromDisplayDate :: Text -> Maybe Text
---fromDisplayDate x :: parseTime defaultTimeLocale "  " x
+--fromDisplayDate :: Text -> Day
+fromDisplayDate x = T.pack $ formatTime defaultTimeLocale "%F" day
+    where
+        day = readTime defaultTimeLocale "%d.%m.%Y" (T.unpack x) :: Day
         
 --from interal to display
 --2013-05-12 -> 12.05.2013
 --toDisplayDate :: Text -> Text
---toDisplayDate x = day ++ "." ++ month ++ "." ++ year
+toDisplayDate x = T.pack $ formatTime defaultTimeLocale "%d.%m.%Y" day
+    where
+        day = readTime defaultTimeLocale "%F" (T.unpack x) :: Day
+        
 formatScripture' :: SermonsScripture -> Html
 formatScripture' (SermonsScripture book c1 v1 c2 v2 Nothing) = 
     toHtml $ (show book) ++ " " ++(show c1) ++ ":" ++(show v1)
@@ -32,7 +38,7 @@ formatScripture x = mapM_ formatScripture' $ decodeList x
 
 formatDate :: Maybe Text -> Html
 formatDate Nothing = toHtml $ show ""
-formatDate (Just t) = toHtml $ t
+formatDate (Just t) = toHtml $ toDisplayDate t
 --formatTime (Just x) = toHtml $ f $ toGregorian $ utctDay x
   --  where
 --        f (a,b,c) = (show c) ++ "." ++ show(b) ++ "." ++ (show a)

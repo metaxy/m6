@@ -38,17 +38,6 @@ data InsertItem = InsertItem {
 
 
 instance FromJSON InsertItem
-{--
-instance FromJSON SermonsScripture where
-    parseJSON (Object v) = SermonsScripture   <$>
-                          v .: "book" <*>
-                          v .: "cap1" <*>
-                          v .: "vers1" <*>
-                          v .: "cap2" <*>
-                          v .: "vers2" <*>
-                          v .: "text"
-    parseJSON _ = mzero
-    --}
 instance FromJSON InsertGroup
 
 maybeToEither :: (Maybe a) -> (Maybe Text) -> Either a Text

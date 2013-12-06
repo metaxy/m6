@@ -96,6 +96,7 @@ library
                  , blaze-markup
                  , blaze-html
                  , yesod-paginator               >= 0.9
+                 , old-locale
 
 executable         m6
     if flag(library-only)

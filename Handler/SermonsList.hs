@@ -3,19 +3,20 @@ module Handler.SermonsList where
 import Import
 import Yesod.Paginator
 import Model.SermonsTable
+import Model.Sermons
 import qualified Data.Text as T
 
 filterBySpeaker :: Maybe Text -> [Filter Sermon]
 filterBySpeaker Nothing = []
 filterBySpeaker (Just s) 
     | T.null s = []
-    | otherwise = [SermonSpeakerName ==. (Just s)]
+    | otherwise = [SermonSpeakerName ==. Just s]
 
 filterByDate :: Maybe Text -> [Filter Sermon]
 filterByDate Nothing = []
 filterByDate (Just s) 
     | T.null s = []
-    | otherwise = [SermonDate ==. (Just s)]
+    | otherwise = [SermonDate ==. (Just $ fromDisplayDate s)]
     
 getSermonsListR :: Text -> Text -> Handler Html
 getSermonsListR cat groupAlias = do
