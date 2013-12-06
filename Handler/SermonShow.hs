@@ -48,7 +48,7 @@ audioPlayer file = do
 getSermonShowR :: SermonId -> Handler Html
 getSermonShowR sermonId = do
     sermon <- runDB $ get404 sermonId
-    let files = decode $ B.fromStrict $ sermonFiles sermon
+    let files = catMaybes $ map (decode . B.fromStrict) $ sermonFiles sermon
     let videoFile = getFile' "video" files
     let audioFile = getFile' "audio" files
     

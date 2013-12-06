@@ -8,6 +8,8 @@ import Text.Blaze.Html()
 import Text.Blaze.Internal
 import qualified Data.ByteString      as BS
 import qualified Data.ByteString.Lazy as LBS
+import Data.Aeson
+import Data.Maybe
 
 --import Data.Time.Clock
 --import Data.Time.Calendar
@@ -21,9 +23,9 @@ formatScripture' (SermonsScripture book c1 v1 c2 v2 Nothing) =
 formatScripture' (SermonsScripture book c1 v1 c2 v2 (Just t))
     | T.null t = formatScripture' (SermonsScripture book c1 v1 c2 v2 Nothing)
     | otherwise = toHtml t
-    
-formatScripture :: [SermonsScripture] -> Html
-formatScripture x = mapM_ formatScripture' x
+ 
+formatScripture :: [BS.ByteString] -> Html
+formatScripture x = mapM_ formatScripture' $ catMaybes $ Import.map(decode . LBS.fromStrict) x 
 
 formatTime :: Maybe Text -> Html
 formatTime Nothing = toHtml $ show ""

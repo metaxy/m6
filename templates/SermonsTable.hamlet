@@ -35,4 +35,3 @@ $else
                     <td>
                         #{formatTime $ sermonTime sermon}
                     <td>
-                        #{downloadLinks $ sermonFiles sermon}

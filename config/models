@@ -70,7 +70,7 @@ Sermon
     speakerId SermonsSpeakerId Maybe
     speakerName Text Maybe
     seriesId SermonsSeriesId Maybe
-    files ByteString
+    files [ByteString]
     scriptures ByteString
     time Text Maybe
     deriving

@@ -8,6 +8,7 @@ import GHC.Generics
 import Data.Time.Clock
 import Control.Monad
 import Model.Sermons
+import qualified Data.ByteString.Lazy as B
 
 -- curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d @test.json http://localhost:3000/api/sermons-insert
 -- curl -X POST -d @test.json http://localhost:3000/api/sermons-insert
@@ -86,7 +87,7 @@ postSermonsInsertR = do
             ,sermonSpeakerName = Just $ itemSpeaker val
             ,sermonSeriesId = Nothing
             ,sermonTime = itemTime val
-            ,sermonFiles = lazyToStrictBS $ encode $ itemFiles val
+            ,sermonFiles = map (B.toStrict . encode) $ itemFiles val
             ,sermonScriptures = lazyToStrictBS $ encode $ itemScriptures val
             }
     return (RepPlain (toContent $ itemTitle val))
