@@ -6,7 +6,7 @@
         {"fileType":"audio", "filePath":"test_ru.mp3", "fileTitle":"Test Audio"}
     ]
     ,"itemScriptures" : [
-        {"sBook":1, "sCap1":1, "sVers1":1, "sCap2":2,"sVers2":3,"sText":"Biblestelle "}
+        {"book":11, "cap2":12, "vers2":13, "cap1":24,"vers1":35,"text":"1Mo 2:1-2"}
     ]
     ,"itemCatAlias": "hellersdorf"
     ,"itemGroup" : "hellersdorf-predigt"

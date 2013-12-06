@@ -32,7 +32,7 @@ $else
                             
                 
                     <td>
-                        #{formatScripture $ sermonScriptures sermon}
+                        #{formatScripture $ decode $ sermonScriptures sermon}
                     <td>
                         #{formatTime $ sermonTime sermon}
                     <td>

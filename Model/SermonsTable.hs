@@ -5,7 +5,7 @@ module Model.SermonsTable where
 import Import
 import Model.Sermons
 import Model.SimpleSearch
-
+import Data.Aeson
 import Data.Maybe
 import qualified Data.Text as T
 

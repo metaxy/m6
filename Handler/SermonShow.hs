@@ -4,6 +4,7 @@ import Import
 import Data.Maybe
 import Data.List
 import Model.Sermons
+import Data.Aeson
 
 getFile' :: Text -> [SermonsFile] -> Maybe SermonsFile
 getFile' typ = listToMaybe . filter(\x -> (sermonsFileType x) == typ)

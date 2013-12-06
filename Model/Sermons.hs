@@ -6,8 +6,14 @@ import Text.Blaze.Html5
 import Text.Blaze.Html5.Attributes
 import Text.Blaze.Html()
 import Text.Blaze.Internal
-import Data.Time.Clock
-import Data.Time.Calendar
+import qualified Data.ByteString      as BS
+import qualified Data.ByteString.Lazy as LBS
+
+--import Data.Time.Clock
+--import Data.Time.Calendar
+
+lazyToStrictBS :: LBS.ByteString -> BS.ByteString
+lazyToStrictBS x = BS.concat $ LBS.toChunks x
 
 formatScripture' :: SermonsScripture -> Html
 formatScripture' (SermonsScripture book c1 v1 c2 v2 Nothing) = 
@@ -19,11 +25,12 @@ formatScripture' (SermonsScripture book c1 v1 c2 v2 (Just t))
 formatScripture :: [SermonsScripture] -> Html
 formatScripture x = mapM_ formatScripture' x
 
-formatTime :: Maybe UTCTime -> Html
+formatTime :: Maybe Text -> Html
 formatTime Nothing = toHtml $ show ""
-formatTime (Just x) = toHtml $ f $ toGregorian $ utctDay x
-    where
-        f (a,b,c) = (show c) ++ "." ++ show(b) ++ "." ++ (show a)
+formatTime (Just t) = toHtml $ t
+--formatTime (Just x) = toHtml $ f $ toGregorian $ utctDay x
+  --  where
+--        f (a,b,c) = (show c) ++ "." ++ show(b) ++ "." ++ (show a)
        
 downloadLinks :: [SermonsFile] -> Html
 downloadLinks = mapM_ downloadLinks'

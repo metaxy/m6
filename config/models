@@ -70,16 +70,11 @@ Sermon
     speakerId SermonsSpeakerId Maybe
     speakerName Text Maybe
     seriesId SermonsSeriesId Maybe
-    files [SermonsFile]
-    scriptures [SermonsScripture]
-    time UTCTime Maybe
+    files ByteString
+    scriptures ByteString
+    time Text Maybe
     deriving
-    
-SermonsFile
-    title Text Maybe
-    type Text
-    path Text
-    
+   
 SermonsGroup
     name Text
     alias Text
@@ -91,13 +86,5 @@ SermonsSeries
     desc Html Maybe
     UniqueSeriesAlias alias
     deriving
-    
-SermonsScripture
-    book Int
-    cap1 Int
-    vers1 Int
-    cap2 Int
-    vers2 Int
-    text Text Maybe
  
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)
