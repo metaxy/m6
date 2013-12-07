@@ -7,22 +7,14 @@ import Model.Sermons
 import qualified Data.Text as T
 import Database.Persist.Sql
 import Data.Maybe
---filterBySpeaker :: Maybe Text -> [Filter Sermon]
---filterBySpeaker Nothing = []
---filterBySpeaker (Just s) = [SermonSpeakerName ==. Just s]
 
-filterBySpeaker' :: Maybe Text -> Text
-filterBySpeaker' Nothing = ""
-filterBySpeaker' (Just s) = " AND \"speaker_name\" = ? "
---filterBySpeaker' (Just s) = " AND \"speaker_name\" = \"" `T.append` s `T.append` "\" "
+filterBySpeaker :: Maybe Text -> Text
+filterBySpeaker Nothing = ""
+filterBySpeaker (Just s) = " AND \"speaker_name\" = ? "
 
---filterByDate :: Maybe Text -> [Filter Sermon]
---filterByDate Nothing = []
---filterByDate (Just s) = [SermonDate ==. (Just $ fromDisplayDate s)]
-
-filterByDate' :: Maybe Text -> Text
-filterByDate' Nothing = ""
-filterByDate' (Just s) = " AND \"date\" = ? "
+filterByDate :: Maybe Text -> Text
+filterByDate Nothing = ""
+filterByDate (Just s) = " AND \"date\" = ? "
 
 nullNothing :: Maybe Text -> Maybe Text
 nullNothing Nothing = Nothing
@@ -33,19 +25,17 @@ nullNothing (Just s)
 getSermonsListR :: SermonsGroupId -> Handler Html
 getSermonsListR groupId = do
     
-    fS <- lookupGetParam "filter_by_speaker"
-    fD <- lookupGetParam "filter_by_date"
-    
+    fS' <- lookupGetParam "filter_by_speaker"
+    fD' <- lookupGetParam "filter_by_date"
+    let fS = nullNothing $ fS'
+    let fD = nullNothing $ fD'
+   
     grp <- runDB $ get404 $ groupId
-  --  let filters =  [SermonGroupId ==. groupId] 
-    --                ++ (filterBySpeaker $ nullNothing fS)  ++ (filterByDate $ nullNothing fD)
-                    
-   -- sermons'' <- runDB $ selectList filters [Asc SermonDate]
-    let filterBinds = catMaybes $ [nullNothing fS, fmap (fromDisplayDate) $ nullNothing fD]
-    sermons'' <- runDB $ rawSql ("SELECT * FROM \"sermon\" WHERE \"group_id\" = ? " `T.append` (filterBySpeaker' $ nullNothing fS) `T.append` (filterByDate' $ nullNothing fD) `T.append` " ORDER BY \"date\";") 
-        ([toPersistValue groupId] ++ (map toPersistValue filterBinds))
+    let filterBinds = catMaybes $ [fS, fmap (fromDisplayDate) fD]
+   
+    sermons2 <- runDB $ rawSql ("SELECT * FROM \"sermon\" WHERE \"group_id\" = ? " `T.append` (filterBySpeaker fS) `T.append` (filterByDate fD) `T.append` " ORDER BY \"date\";") ([toPersistValue groupId] ++ (map toPersistValue filterBinds))
         
-    (sermons', widget) <- paginate 5 sermons''
+    (sermons', widget) <- paginate 25 sermons2
     
     table <- widgetToPageContent $ sermonsTable sermons'
     speakers <- runDB $ selectList [] [Asc SermonsSpeakerName]
