@@ -33,5 +33,3 @@
                 <i .fa .fa-film>
                 <a href=#{sermonsFilePath f2}>
                     Video herunterladen                  
-                
-            #{downloadLinks $ sermonFiles sermon}

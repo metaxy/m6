@@ -5,7 +5,6 @@ import Import
 entryForm :: Form SermonsGroup
 entryForm = renderDivs $ SermonsGroup
     <$> areq textField "Name" Nothing
-    <*> areq textField "Alias" Nothing
     
 getBackendSermonGroupAddR :: Handler Html
 getBackendSermonGroupAddR = do

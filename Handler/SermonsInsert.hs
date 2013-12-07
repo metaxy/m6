@@ -11,40 +11,21 @@ import Model.Sermons
 import qualified Data.ByteString.Lazy as B
 
 -- curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d @test.json http://localhost:3000/api/sermons-insert
--- curl -X POST -d @test.json http://localhost:3000/api/sermons-insert
-data InsertSpeaker = InsertSpeaker { 
-     speakerName :: Text
-    ,speakerAlias :: Text
-} deriving Generic
-data InsertGroup = InsertGroup { 
-     groupName :: Text
-    ,groupAlias :: Text
-} deriving Generic
-
+-- curl -X POST -d @insert.json http://localhost:3000/api/sermons-insert
 
 data InsertItem = InsertItem { 
-     itemTitle :: Text
-    ,itemAlias :: Text
-    ,itemLang :: [Text]
-    ,itemCatAlias :: Text
-    ,itemScriptures :: [SermonsScripture]
-    ,itemFiles :: [SermonsFile]
-    ,itemGroupNew :: Maybe InsertGroup
-    ,itemGroup :: Maybe Text
-    ,itemSpeaker :: Text
-    ,itemPicture :: Maybe Text
-    ,itemDate :: Maybe Text
+     title :: Text
+    ,lang :: [Text]
+    ,scriptures :: [SermonsScripture]
+    ,files :: [SermonsFile]
+    ,groupName :: Text
+    ,speaker :: Text
+    ,picture :: Maybe Text
+    ,date :: Maybe Text
+    --,notes :: Maybe Html
 } deriving Generic
 
-
 instance FromJSON InsertItem
-instance FromJSON InsertGroup
-
-maybeToEither :: (Maybe a) -> (Maybe Text) -> Either a Text
-maybeToEither Nothing (Just a) = Right a
-maybeToEither (Just b) Nothing = Left b
-maybeToEither (Just b) _ = Left b
-maybeToEither Nothing Nothing = Right ""
 
 
 getSermonsInsertR :: Handler Html
@@ -54,29 +35,30 @@ postSermonsInsertR :: Handler RepPlain
 postSermonsInsertR = do
     val <- parseJsonBody_
     -- get speakerid or create new one
-    speaker <- runDB $ getBy $ UniqueSpeakerName (itemSpeaker val)
-    speakerId <- case speaker of
+    speaker' <- runDB $ getBy $ UniqueSpeakerName (speaker val)
+    speakerId <- case speaker' of
         Just sp -> return $ entityKey sp
-        Nothing -> runDB $ insert (SermonsSpeaker (itemSpeaker val) Nothing Nothing)
+        Nothing -> runDB $ insert (SermonsSpeaker (speaker val) Nothing Nothing)
         
     -- get groupid or create new one
-    groupId <- case (maybeToEither (itemGroupNew val) (itemGroup val)) of
-         Left i -> runDB $ insert (SermonsGroup (groupName i) (groupAlias i))
-         Right t -> fmap entityKey $ runDB $ getBy404 $ UniqueGroupAlias t
+    group' <- runDB $ getBy $ UniqueGroupName (groupName val)
+    groupId <- case group' of
+        Just grp -> return $ entityKey grp
+        Nothing -> runDB $ insert (SermonsGroup (groupName val))
+        
     -- insert sermon 
     _ <- runDB $ insert $
         Sermon {
-            sermonTitle = itemTitle val
-            ,sermonAlias = itemAlias val
-            ,sermonLanguage = itemLang val
-            ,sermonPicture = Nothing 
-            ,sermonNotes = Nothing 
+            sermonTitle = title val
+            ,sermonLanguage = lang val
+            ,sermonPicture = picture val
+            ,sermonNotes = Nothing
             ,sermonGroupId = groupId 
             ,sermonSpeakerId = Just speakerId
-            ,sermonSpeakerName = Just $ itemSpeaker val
+            ,sermonSpeakerName = Just $ speaker val
             ,sermonSeriesId = Nothing
-            ,sermonDate = itemDate val
-            ,sermonFiles = map (B.toStrict . encode) $ itemFiles val
-            ,sermonScriptures = map (B.toStrict . encode) $ itemScriptures val
+            ,sermonDate = date val
+            ,sermonFiles = map (B.toStrict . encode) $ files val
+            ,sermonScriptures = map (B.toStrict . encode) $ scriptures val
             }
-    return (RepPlain (toContent $ itemTitle val))
+    return (RepPlain (toContent $ title val))

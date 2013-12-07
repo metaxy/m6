@@ -1,26 +1,24 @@
 {
-    "itemTitle":"Test Predigt"
-    ,"itemAlias":"test-predigt"
-    ,"itemLang" : ["de"]
-    ,"itemFiles" : [ 
+    "title":"Test Predigt 2"
+    ,"lang" : ["de"]
+    ,"files" : [ 
         {"sermonsFileType":"video", 
         "sermonsFilePath":"./test.mp4", 
         "sermonsFileTitle":"Test Video"},
-         {"sermonsFileType":"Audio", 
+         {"sermonsFileType":"audio", 
         "sermonsFilePath":"./test.mp4", 
         "sermonsFileTitle":"Test Audio!"}
     ]
-    ,"itemScriptures" : [
+    ,"scriptures" : [
         {"sermonsScriptureBook":1, 
         "sermonsScriptureChapter1":1, 
         "sermonsScriptureVerse1":1, 
         "sermonsScriptureChapter2":2,
         "sermonsScriptureVerse2":3,
-        "sermonsScriptureText":""
+        "sermonsScriptureText":"1Mo 2:1-2"
         }
     ]
-    ,"itemCatAlias": "hellersdorf"
-    ,"itemGroup" : "hellersdorf-predigt"
-    ,"itemSpeaker" : "Wilhelm Walger"
-    ,"itemDate" : "2013-12-07"
+    ,"groupName" : "Predigt"
+    ,"speaker" : "Paul Walger"
+    ,"date" : "2013-12-04"
 }
