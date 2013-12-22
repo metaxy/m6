@@ -1,5 +1,5 @@
 {
-    "title":"Test Predigt 2"
+    "title":"Test Predigt 4"
     ,"lang" : ["de"]
     ,"files" : [ 
         {"sermonsFileType":"video", 
@@ -15,10 +15,10 @@
         "sermonsScriptureVerse1":1, 
         "sermonsScriptureChapter2":2,
         "sermonsScriptureVerse2":3,
-        "sermonsScriptureText":"1Mo 2:1-2"
+        "sermonsScriptureText":"2Mo 2:1-2"
         }
     ]
     ,"groupName" : "Predigt"
-    ,"speaker" : "Paul Walger"
+    ,"speaker" : "Wilhelm Walger"
     ,"date" : "2013-12-04"
 }

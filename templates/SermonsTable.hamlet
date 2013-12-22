@@ -1,7 +1,7 @@
 $if null sermons
     <p> Keine Predigten gefunden
 $else
-    <table .category .table .table-striped .table-hover>
+    <table .category .table .table-striped .table-hover #sermons-table>
         <thead>
             <tr>
                 <th>

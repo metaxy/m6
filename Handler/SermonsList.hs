@@ -8,46 +8,23 @@ import qualified Data.Text as T
 import Database.Persist.Sql
 import Data.Maybe
 
-filterBySpeaker :: Maybe Text -> Text
-filterBySpeaker Nothing = ""
-filterBySpeaker (Just s) = " AND \"speaker_name\" = ? "
-
-filterByDate :: Maybe Text -> Text
-filterByDate Nothing = ""
-filterByDate (Just s) = " AND \"date\" = ? "
-
-filterByTitle :: Maybe Text -> Text
-filterByTitle Nothing = ""
-filterByTitle (Just s) = " AND \"title\" MATCH ? "
-
-nullNothing :: Maybe Text -> Maybe Text
-nullNothing Nothing = Nothing
-nullNothing (Just s)
-    | T.null s = Nothing
-    | otherwise = Just s
 
 getSermonsListR :: SermonsGroupId -> Handler Html
 getSermonsListR groupId = do
     
-    fS' <- lookupGetParam "s"
-    fD' <- lookupGetParam "d"
-    fT' <- lookupGetParam "t"
-    let fS = nullNothing $ fS'
-    let fD = nullNothing $ fD'
-    let fT = nullNothing $ fT'
-   
     grp <- runDB $ get404 $ groupId
-    let filterBinds = catMaybes $ [fS, fmap (fromDisplayDate) fD, fT]
-   
-    sermons2 <- runDB $ rawSql ("SELECT * FROM \"sermon\" WHERE \"group_id\" = ? " `T.append` (filterBySpeaker fS) `T.append` (filterByDate fD) `T.append` (filterByTitle fT) `T.append` " ORDER BY \"date\";") ([toPersistValue groupId] ++ (map toPersistValue filterBinds))
-        
-    (sermons', widget) <- paginate 25 sermons2
     
+    sermons' <- runDB $ selectList [SermonGroupId ==. groupId] []
+       
     table <- widgetToPageContent $ sermonsTable sermons'
     speakers <- runDB $ selectList [] [Asc SermonsSpeakerName]
     
+    
     defaultLayout $ do
         addScript $ StaticR javascripts_bootstrap_datepicker_js
+        addScript $ StaticR javascripts_jquery_dynatable_js
+        
+        addStylesheet $ StaticR stylesheets_jquery_dynatable_css
         addStylesheet $ StaticR stylesheets_datepicker_css
         toWidget [julius|
             $('.input-group.date').datepicker({
@@ -58,6 +35,13 @@ getSermonsListR groupId = do
                 todayHighlight: true
             });
           |]
+          
+        toWidget [julius| 
+            $(document).ready( function() {
+                $('#sermons-table').dynatable();
+             });
+         |]
+         
         $(widgetFile "SermonList")
 
 
