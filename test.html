@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title></title>
+ 
+    <script src="http://localhost:3000/static/javascripts/jquery-1.7.2.min.js" ></script>
+    <script src="http://localhost:3000/static/javascripts/jquery.dynatable.js" ></script>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="http://m6.ecg-berlin.de/static/combined/Bwh9zEer.css">
+<link rel="stylesheet" href="http://m6.ecg-berlin.de/static/stylesheets/jquery.dynatable.css">
+
+  </head>
+  <body>
+  
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<table id="my-ajax-table">
+  <thead>
+    <th data-dynatable-column="title">Title</th>
+    <th data-dynatable-column="date">Band</th>
+    <th data-dynatable-column="speaker">Speaker</th>
+    <th data-dynatable-column="scripture">Scriptures</th>
+    <th data-dynatable-column="links">Links</th>
+                
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+<script>
+$(document).ready( function() {   
+  $.getJSON( "http://localhost:3000/sermons-json/1", function( json ) {
+    //debug.log(json);
+    $('#my-ajax-table').dynatable({
+	dataset: {
+	  records: json
+      }
+    });
+  });
+});
+
+</script>
+
+  </body>
+</html>

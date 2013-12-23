@@ -15,5 +15,5 @@ Staging:
   <<: *defaults
 
 Production:
-  approot: "http://localhost:3000"
+  approot: "http://m6.ecg-berlin.de"
   <<: *defaults

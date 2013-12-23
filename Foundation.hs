@@ -195,3 +195,21 @@ toolbarDefaultLayout widget = do
                 ])
             $(widgetFile "default-layout")
         giveUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
+        
+        
+emptyLayout :: WidgetT App IO () -> HandlerT App IO Html
+emptyLayout widget = do
+        master <- getYesod
+        mmsg <- getMessage
+     
+        pc <- widgetToPageContent $ do
+            $(combineStylesheets 'StaticR
+                [ stylesheets_styles_css
+                ])
+            $(combineScripts 'StaticR
+                [javascripts_jquery_1_10_2_min_js,
+                 javascripts_bootstrap_min_js
+                ])
+            $(widgetFile "empty-layout")
+        giveUrlRenderer $(hamletFile "templates/empty-wrapper.hamlet")    
+

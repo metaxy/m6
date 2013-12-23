@@ -18,6 +18,7 @@
 /article/#Text/#Text ArticleR GET
 
 /sermons/#SermonsGroupId SermonsListR GET POST
+/sermons-json/#SermonsGroupId SermonsJsonListR GET POST
 /sermon/show/#SermonId SermonShowR GET
 
 /api/sermons/#String SermonsApiR GET

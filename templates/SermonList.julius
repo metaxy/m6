@@ -1,0 +1,24 @@
+$(document).ready( function() {      
+    $('#sermons-table').dynatable( {
+        features: {
+            recordCount: false,
+            perPageSelect: false
+        },
+      /*  inputs : {
+            queries: $('#filter-title')
+        }*/
+    }
+    );
+    /*$('#date').change( function() {
+        var value = $(this).val();
+        if (value === "") {
+            table.queries.remove("date");
+        } else {
+            table.queries.add("date",value);
+        }
+        table.process();
+    });
+    */
+});
+
+

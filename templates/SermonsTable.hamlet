@@ -4,13 +4,13 @@ $else
     <table .category .table .table-striped .table-hover #sermons-table>
         <thead>
             <tr>
-                <th>
+                <th  data-dynatable-column="title">
                     Titel
-                <th>
+                <th  data-dynatable-column="preacher">
                     Prediger
-                <th>
+                <th  data-dynatable-column="scripture">
                     Stelle
-                <th>
+                <th  data-dynatable-column="date">
                     Datum
                 <th>
                     Download

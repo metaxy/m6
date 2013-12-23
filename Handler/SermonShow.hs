@@ -58,7 +58,7 @@ getSermonShowR sermonId = do
          Nothing -> return Nothing
          Just s -> runDB $ get s
          
-    defaultLayout $ do 
+    emptyLayout $ do 
         setTitle $ toHtml $ sermonTitle sermon
         toWidget [hamlet|<h1> #{sermonTitle sermon}|]
         case videoFile of
