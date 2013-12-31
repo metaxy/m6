@@ -81,6 +81,7 @@ SermonsGroup
 SermonsSeries
     name Text
     desc Html Maybe
+    UniqueSeriesName name
     deriving
  
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)

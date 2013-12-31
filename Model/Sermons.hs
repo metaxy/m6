@@ -47,10 +47,10 @@ downloadLinks :: [BS.ByteString] -> Html
 downloadLinks x = mapM_ downloadLinks' $ decodeList x
 
 downloadLinks' :: SermonsFile -> Html
-downloadLinks' (SermonsFile _ path "audio") = a ! href (textValue path) $ i ! class_ "fa fa-headphones" $ ""
-downloadLinks' (SermonsFile _ path "video") = a ! href (textValue path) $ i ! class_ "fa fs-film" $ ""
-downloadLinks' (SermonsFile _ path "text") = a ! href (textValue path)  $ i ! class_ "fa fa-download" $ ""
-downloadLinks' (SermonsFile _ path _) = a ! href (textValue path)  $ i ! class_  "fa fa-download" $ ""
+downloadLinks' (SermonsFile _ path "audio") = a ! href (textValue path) $ i ! class_ "icon-headphones" $ ""
+downloadLinks' (SermonsFile _ path "video") = a ! href (textValue path) $ i ! class_ "icon-film" $ ""
+downloadLinks' (SermonsFile _ path "text") = a ! href (textValue path)  $ i ! class_ "icon-download" $ ""
+downloadLinks' (SermonsFile _ path _) = a ! href (textValue path)  $ i ! class_  "icon-download" $ ""
 
 updateGetParam :: [(Text,Text)] -> (Text,Text) -> Text
 updateGetParam getParams (p, n) = (T.cons '?') . T.intercalate "&"

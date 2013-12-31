@@ -17,8 +17,9 @@
 /backend/sermon/series/add BackendSermonSeriesAddR GET POST
 /article/#Text/#Text ArticleR GET
 
-/sermons/#SermonsGroupId SermonsListR GET POST
-/sermons-json/#SermonsGroupId SermonsJsonListR GET POST
+/sermons/#SermonsGroupId SermonsListR GET
+/sermons-json/#SermonsGroupId SermonsJsonListR GET
+/sermon-json/#SermonId SermonJsonListR GET
 /sermon/show/#SermonId SermonShowR GET
 
 /api/sermons/#String SermonsApiR GET

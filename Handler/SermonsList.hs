@@ -16,31 +16,39 @@ import GHC.Generics
 
 import Text.Blaze.Html.Renderer.Text
 data SermonsListItem = SermonsListItem {
-    title :: Text
+    id :: Value
+    ,title :: Text
     ,speaker :: Text
     ,date :: Text
     ,scripture :: Text
     ,links :: Text
+    ,video :: [Text]
+    ,audio :: [Text]
 } deriving Generic
 
 instance ToJSON SermonsListItem
 
-toItem :: Sermon -> SermonsListItem
-toItem x = SermonsListItem (sermonTitle x) 
+toItem :: Sermon -> SermonId -> SermonsListItem
+toItem x y = SermonsListItem 
+    (toJSON y)
+    (sermonTitle x) 
     (fromMaybe "" $ sermonSpeakerName x) (Ta.toStrict $ renderHtml $ formatDate $ sermonDate x) 
     (Ta.toStrict $ renderHtml $ formatScripture $ sermonScriptures x)
     (Ta.toStrict $ renderHtml $ downloadLinks $ sermonFiles x)
+    (Import.map(sermonsFilePath) $ Import.filter((==) "video" . sermonsFileType) $ decodeList $ sermonFiles x)
+    (Import.map(sermonsFilePath) $ Import.filter((==) "audio" . sermonsFileType) $ decodeList $ sermonFiles x)
     
 getSermonsJsonListR :: SermonsGroupId -> Handler Value
 getSermonsJsonListR groupId = do
-    setHeader "Access-Control-Allow-Origin" "*"
-    grp <- runDB $ get404 $ groupId
+    addHeader "Access-Control-Allow-Origin" "*"
     sermons <- runDB $ selectList [SermonGroupId ==. groupId] []
-    returnJson $ toJSON $ Import.map (toItem . entityVal) sermons 
+    returnJson $ toJSON $ Import.map (\x -> toItem (entityVal x) (entityKey x)) sermons 
 
-
-postSermonsJsonListR :: SermonsGroupId -> Handler Value
-postSermonsJsonListR = error "Not yet implemented: postSermonsListR"
+getSermonJsonListR :: SermonId -> Handler Value
+getSermonJsonListR sermonId = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    sermon <- runDB $ get404 $ sermonId
+    returnJson $ toJSON $ toItem sermon sermonId
 
 getSermonsListR :: SermonsGroupId -> Handler Html
 getSermonsListR groupId = do
@@ -54,23 +62,8 @@ getSermonsListR groupId = do
     
     
     emptyLayout $ do
-    --    addScript $ StaticR javascripts_bootstrap_datepicker_js
         addScript $ StaticR javascripts_jquery_dynatable_js
-        
         addStylesheet $ StaticR stylesheets_jquery_dynatable_css
-    --    addStylesheet $ StaticR stylesheets_datepicker_css
-       {-- toWidget [julius|
-            $('.input-group.date').datepicker({
-                language: "de",
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true,
-                todayHighlight: true
-            });
-            |]--}
-          
         $(widgetFile "SermonList")
 
 
-postSermonsListR :: SermonsGroupId -> Handler Html
-postSermonsListR = error "Not yet implemented: postSermonsListR"

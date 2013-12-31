@@ -21,7 +21,6 @@ import Text.Hamlet (hamletFile)
 import System.Log.FastLogger (Logger)
 import Yesod.Form.Nic (YesodNic,nicHtmlField)
 import           Data.Text (Text)
-import qualified Data.Text as T
 
 instance YesodNic App
 -- | The site argument for your application. This can be a good place to
