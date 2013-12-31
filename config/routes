@@ -19,6 +19,7 @@
 
 /sermons/#SermonsGroupId SermonsListR GET
 /sermons-json/#SermonsGroupId SermonsJsonListR GET
+/sermons-json-limited/#Int/#SermonsGroupId SermonsJsonLimitedListR GET
 /sermon-json/#SermonId SermonJsonListR GET
 /sermon/show/#SermonId SermonShowR GET
 

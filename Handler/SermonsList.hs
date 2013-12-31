@@ -41,7 +41,13 @@ toItem x y = SermonsListItem
 getSermonsJsonListR :: SermonsGroupId -> Handler Value
 getSermonsJsonListR groupId = do
     addHeader "Access-Control-Allow-Origin" "*"
-    sermons <- runDB $ selectList [SermonGroupId ==. groupId] []
+    sermons <- runDB $ selectList [SermonGroupId ==. groupId] [Asc SermonDate]
+    returnJson $ toJSON $ Import.map (\x -> toItem (entityVal x) (entityKey x)) sermons 
+
+getSermonsJsonLimitedListR :: Int -> SermonsGroupId -> Handler Value
+getSermonsJsonLimitedListR limit groupId = do
+    addHeader "Access-Control-Allow-Origin" "*"
+    sermons <- runDB $ selectList [SermonGroupId ==. groupId] [LimitTo limit, Asc SermonDate]
     returnJson $ toJSON $ Import.map (\x -> toItem (entityVal x) (entityKey x)) sermons 
 
 getSermonJsonListR :: SermonId -> Handler Value
